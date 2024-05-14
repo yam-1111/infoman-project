@@ -6,7 +6,7 @@ Created and developed by the BSCS 2-1 Group 1 for Information Management. The CS
 
 * Applicants: Applicants can conveniently register and submit their personal data sheets electronically. They also have the ability to edit and update their submitted information for accuracy.
 
-* Administrators: Administrators have full CRUD (Create, Read, Update, Delete) capabilities for managing applicant data sheets. This includes adding new applicants, viewing submitted forms, editing existing information, and deleting records as needed.
+* Administrators: Administrators have full CRUD (Create, Read, Update, Delete) capabilities for managing applicant data sheets. This includes adding new admins, viewing submitted forms, editing existing information, and deleting records as needed.
 
 ## 💻 Technology Used
 
