@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+{% block content %}
+<div class="bg-light">
+    <div class="container">
+        <div class="py-15 text-right"> <!-- Changed alignment to right -->
+            <img class="d-block mx-left mb-4" width="100" src="{{ url_for('static', filename='assets/csc_logo.png') }}">
+            <h1>Personal Data Sheet</h1>
+            <p class="lead">WARNING: Any misrepresentation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminal case's against the person</p>
+        </div>
+        <div class="row g-2">
+            <div class="col-lg-12">
+                <form class="needs-validation mx-auto mt-5" action="">
+                    <div id="parentContainer" class="row g-2">
+                    </div>
+                </form>
+                <hr>
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="javascript:void(0)" id="prevButton" class="btn btn-secondary mr-2" onclick="nextPage()">Previous</a>
+                    <a href="javascript:void(0)" id="nextButton" class="btn btn-primary" onclick="nextPage()">Next</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/formPage.js') }}"></script>
+{%endblock%}
