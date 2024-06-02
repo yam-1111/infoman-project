@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="vh-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div id="parentContainer" class="col-sm-6 text-black">
+                <!-- Expands  into login and register page-->
+            </div>
+            <div class="col-sm-6 px-0 d-none d-sm-block">
+                <img src="{{url_for('static', filename='assets/csc_bg.jpg')}}" 
+                alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: center;">
+           
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    console.log("{{url_for('static', filename='html/user/login.html')}}");
+</script>
+<script src="{{ url_for('static', filename='js/loginPage.js') }}"></script>
+{% endblock %}
