@@ -2,9 +2,9 @@ console.log("i am executed")
 $(document).ready(function() {
     // Function to load content
     window.loadPage = function (page) {
-        $("#parentContainer").fadeOut(100, function() {
+        $("#parentContainer").fadeIn(150, function() {
             $(this).load("/static/html/login/" + page + ".html", function() {
-                $(this).fadeIn(150);
+                // $(this).fadeIn(150);
             });
         });
     }
