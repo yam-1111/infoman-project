@@ -1,5 +1,6 @@
 console.log("form loaded")
 window.counter = 0;
+window.childCounter = 0;
 const pages = ["personal_info", "children", "education"];
 var formData = {}
 
@@ -68,4 +69,41 @@ $(document).ready(function () {
         }
         loadPage(pages[counter]);
     }
+
+    // children information
+    window.addChildren = () => {
+        childCounter++;
+        let childForm = `
+        <div class="child-form row" id="childForm${childCounter}">
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="fullName${childCounter}">Full Name</label>
+                    <input type="text" class="form-control" placeholder="Children Name" id="fullName${childCounter}" name="fullName${childCounter}" required>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="form-group">
+                    <label for="birthDay${childCounter}">Birth Day</label>
+                    <input type="date" class="form-control" id="birthDay${childCounter}" name="birthDay${childCounter}" required>
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger removeChildButton" data-id="${childCounter}">Remove</button>
+            </div>
+        </div>
+    `;
+    
+        $("#childrenContainer").append(childForm);
+
+        $(document).on("click", ".removeChildButton", function () {
+            let id = $(this).data("id");
+            $("#childForm" + id).remove();
+        });
+    }
+
+    window.removeChildren = () => {
+        $("#childrenContainer").empty();
+        childCounter = 0;
+    }
+
 });
