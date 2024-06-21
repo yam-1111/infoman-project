@@ -8,4 +8,4 @@ admin = Blueprint(
 
 @admin.route('/')
 def index():
-    return "Welcome to admin page!"
+    return render_template('admin/adminParent.html')

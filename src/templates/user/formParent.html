@@ -1,15 +1,19 @@
 {% extends "base.html" %} 
 {% block content %}
 <div class="bg-light">
-    <div class="container">
-        <div class="py-15 text-right"> <!-- Changed alignment to right -->
-            <img class="d-block mx-left mb-4" width="100" src="{{ url_for('static', filename='assets/csc_logo.png') }}">
-            <h1>Personal Data Sheet</h1>
-            <p class="lead">WARNING: Any misrepresentation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminal case's against the person</p>
+    <nav class="navbar sticky-top shadow-sm bg- nv-transparent">
+        <div class="container-fluid">
+          <a class="navbar-brand font-weight-bold" href="#">
+            <img src="{{url_for('static', filename='assets/csc_logo.png')}}" alt="" width="30" height="30" class="d-inline-block align-text-top">
+            Personal Data Sheet
+          </a>
         </div>
+      </nav>
+
+    <div class="container mb-4">
         <div class="row g-2">
             <div class="col-lg-12">
-                <form class="needs-validation mx-auto mt-5" action="">
+                    <form class="needs-validation mx-auto mt-5" action="">
                     <div id="parentContainer" class="row g-2">
                     </div>
                 </form>

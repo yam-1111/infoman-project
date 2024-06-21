@@ -1,25 +1,70 @@
-<!-- Children Information -->
+<div class="card shadow bg-secondary">
+    <h4 class="card-title text-white p-2">
+        II. FAMILY BACKGROUND
+    </h4>
+</div>
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-      </symbol>
-  </svg>
-<h2 class="col-12 mb-4">Children Information</h1>
-    <div class="alert alert-warning d-flex align-items-center" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#info-fill"/></svg>
-        <div>
-            If you have children, please add their information below. Otherwise, you can skip this section
+<div class="card shadow">
+    <div class="card-body">
+        <div class="row">
+            <!-- Mother  & Father background-->
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label for="fatherFullName" class="form-label">Father's Full Name</label>
+                    <input type="text" class="form-control" id="fatherFullName" name="fatherFullName" required>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label for="motherFullName" class="form-label">Mother's Full Name <span class="text-muted">use
+                            maiden surname</span></label>
+                    <input type="text" class="form-control" id="motherFullName" name="motherFullName" required>
+                </div>
+            </div>
+
+            <!--spouse section-->
+            <hr class="my-4">
+            <div class="col-12 col-md-12">
+                <div class="mb-3">
+                    <label for="spouseFullName" class="form-label">Spouse's Full Name</label>
+                    <input type="text" class="form-control" id="spouseFullName" name="spouseFullName" required>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="mb-3">
+                    <label for="spouseOccupation" class="form-label">Occupation</label>
+                    <input type="text" class="form-control" id="spouseFullName" name="spouseOccupation" required>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="mb-3">
+                    <label for="spouseBusinessAddress" class="form-label">Business Address</label>
+                    <input type="text" class="form-control" id="spouseBusinessAddress"" name=" spouseBusinessAddress"
+                        required>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="mb-3">
+                    <label for="spouseBusinessAddress" class="form-label">Telephone No. </label>
+                    <input type="text" class="form-control" id="spouseBusinessNumber" name=" spouseBusinessNumber"
+                        required>
+                </div>
+            </div>
+
+            <!-- children-->
+            <hr class="my-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5>Add children information</h5>
+                <div class="d-flex gap-2">
+                    <a href="javascript:void(0)" id="addChildrenBtn"class="btn btn-secondary"><i class="fa fa-user-plus"></i> Add children</a>
+                    <a href="javascript:void(0)" id="removeChildrenBtn" class="btn btn-danger"><i class="fas fa-user-times"></i> Delete all</a>
+                </div>
+            </div>
+            <div id="childrenContainer" class="row justify-content-center">
+            </div>
         </div>
     </div>
+</div>
 
-    
-    
-<div class="d-flex justify-content-end gap-2">
-    <a href="#" id="addChildrenButton" onclick="addChildren()" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Add Children Info</a>
-    <a href="#" id="removeChildrenButton" onclick="removeChildren()" class="btn btn-danger"><i class="fa-solid fa-user-plus"></i> Remove all entries</a>
-</div>
-<hr>
-<div id="childrenContainer" style="display: flex; flex-direction: column;"></div>
-<!--Children table-->
-</div>
+<script src="/static/js/forms/childrenPage.js"></script>
