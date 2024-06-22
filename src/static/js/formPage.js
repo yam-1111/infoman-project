@@ -2,7 +2,7 @@ console.log("form loaded");
 
 // global counters
 window.counter = 0;
-window.childCounter = 0;
+window._childCounter = 0;
 window.elementary = 0;
 window.secondary = 0;
 window.college = 0;
@@ -33,50 +33,17 @@ $(document).ready(function () {
       });
 
     // getter on children
-    console.log('i am exexucted')
-    function isChildrenExist(fullName){
-        for (let j = 0; j < childData.length; j++) {
-            console.log(childData[j].fullName + "-" + fullName )
-            if (childData[j].fullName === fullName ) {
-                return false;
-            }
+    let  childCounter =  $('.child-form').length;
+    
+    for (let j = 1; j <= childCounter; j++) {
+      let fullName = $(`#childfullName${j}`).val();
+      let birthDay = $(`#childbirthDay${j}`).val();
+      if (fullName && birthDay) {
+        if (!childData.find((_child) => _child.fullName == fullName)) {
+          childData.push({ fullName : fullName, birthDay : birthDay });
         }
-        
-        return true
-    }
-    function updateChildData() {
-        // Check if childCounter is 0
-        if (childCounter === 0) {
-          return;
-        }
-      
-        // Loop through each child form to get data
-        for (let i = 1; i <= childCounter; i++) {
-          let fullName = $(`#childfullName${i}`).val();
-          let birthDay = $(`#childbirthDay${i}`).val();
-      
-          if (fullName && birthDay) {  // Only add non-blank entries and unique
-                if(isChildrenExist(fullName)){
-                    childData[i - 1] = {
-                        fullName: fullName,
-                        birthDay: birthDay
-                    };
-                }
-
-          } 
-        //   else {
-        //     // If blank, remove this element and adjust the array
-        //     childData.splice(i - 1, 1);
-        //     // Adjust the counter to reflect the removed element
-        //     childCounter--;
-        //     // Re-evaluate the loop from the current position
-        //     i--;
-        //   }
-        }
-      
-        console.log(childData);
       }
-      updateChildData();
+    }
 
     $("#parentContainer").fadeOut(100, function () {
       $(this).load("/static/html/form/" + page + ".html", function () {
@@ -95,6 +62,7 @@ $(document).ready(function () {
         // Update navigation buttons visibility
         if (counter == 0) {
           $("#prevButton").hide();
+          _childCounter = 0;
         } else {
           $("#prevButton").show();
         }
@@ -108,6 +76,7 @@ $(document).ready(function () {
           $("#nextButton").show();
           // Ensure the submit button is removed if it exists and the counter is not 2
           $("#submitForm").remove();
+          _childCounter = 0;
         }
       });
     });

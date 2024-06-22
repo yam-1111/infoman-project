@@ -1,8 +1,13 @@
 
-
 $(document).ready(function () {
   function addChildForm(child = {}) {
-    childCounter++;
+
+    console.log("child length: " + Object.keys(child).length + "\n" + JSON.stringify(child));
+
+    childCounter = $('.child-form').length + 1;
+    window._childCounter = childCounter;
+
+    console.log("childCounter: " + childCounter);
     let fullName = child.fullName || "";
     let birthDay = child.birthDay || "";
 
@@ -26,23 +31,23 @@ $(document).ready(function () {
       </div>
     `;
     $("#childrenContainer").append(childForm);
-
-   
   }
 
   $("#addChildrenBtn").click(function () {
     addChildForm();
-    childData.push({ fullName: "", birthDay: "" });
   });
 
+  /**TODO : fix the bug - when removing the 1st item it deletes all */
   $(document).on("click", ".removeChildButton", function () {
+    console.log("removing child..." + $(this).data("id"));
     let id = $(this).data("id");
+    $(`.child-form[id="childForm${id}"]`).remove();
     childData.splice(id - 1, 1);
+    
   });
 
   $("#removeChildrenBtn").click(function () {
     $("#childrenContainer").empty();
-    childCounter = 0;
     childData = [];
   });
 
@@ -58,6 +63,8 @@ $(document).ready(function () {
     console.log("adding the children...");
     populateChildren();
   }
+
+  
 
 
 });
