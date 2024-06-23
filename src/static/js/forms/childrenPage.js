@@ -38,13 +38,15 @@ $(document).ready(function () {
   });
 
   /**TODO : fix the bug - when removing the 1st item it deletes all */
-  $(document).on("click", ".removeChildButton", function () {
+   $(document).on("click", ".removeChildButton", function () {
     console.log("removing child..." + $(this).data("id"));
     let id = $(this).data("id");
     $(`.child-form[id="childForm${id}"]`).remove();
     childData.splice(id - 1, 1);
     
   });
+
+
 
   $("#removeChildrenBtn").click(function () {
     $("#childrenContainer").empty();

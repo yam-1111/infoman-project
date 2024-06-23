@@ -3,14 +3,15 @@ console.log("form loaded");
 // global counters
 window.counter = 0;
 window._childCounter = 0;
-window.elementary = 0;
-window.secondary = 0;
+window._elementary = 0;
+window._secondary = 0;
 window.college = 0;
 window.post = 0;
 
 // global data
 var formData = {};
 var childData = [];
+var educationData = {};
 
 const pages = ["personal_info", "children", "education"];
 
@@ -33,14 +34,87 @@ $(document).ready(function () {
       });
 
     // getter on children
-    let  childCounter =  $('.child-form').length;
-    
+    let childCounter = $(".child-form").length;
+
     for (let j = 1; j <= childCounter; j++) {
       let fullName = $(`#childfullName${j}`).val();
       let birthDay = $(`#childbirthDay${j}`).val();
       if (fullName && birthDay) {
         if (!childData.find((_child) => _child.fullName == fullName)) {
-          childData.push({ fullName : fullName, birthDay : birthDay });
+          childData.push({ fullName: fullName, birthDay: birthDay });
+        }
+      }
+    }
+
+    // getter on education
+    function educationDataChecker(jsonObject, nestedJson, key) {
+      if (nestedJson[key]) {
+        return nestedJson[key].some(
+          (item) => JSON.stringify(item) === JSON.stringify(jsonObject)
+        );
+      }
+      return false;
+    }
+
+    console.log("reading education background");
+    let _educationCounter = [];
+    let _educationDegree = ["elementary", "secondary", "tertiary", "post"];
+    for (let i = 0; i < _educationDegree.length; i++) {
+      let educationCounter = $(`.${_educationDegree[i]}-form`).length;
+      _educationCounter.push(educationCounter);
+      // extract the data from inputs
+      for (let x = 1; x <= _educationCounter[i]; x++) {
+        console.log(
+          "Educational Count :" +
+            _educationCounter[i] +
+            "current degree : " +
+            _educationDegree[i]
+        );
+        // read the form rows
+        let schoolName = $(`#${_educationDegree[i]}SchoolName${x}`).val();
+        let degree = $(`#${_educationDegree[i]}DegreeName${x}`).val();
+        let gradsStart = $(`#${_educationDegree[i]}Start${x}`).val();
+        let gradsEnd = $(`#${_educationDegree[i]}End${x}`).val();
+        let isGraduate = $(`#${_educationDegree[i]}Graduate${x}`).is(
+          ":checked"
+        );
+        let highestAttainment = isGraduate
+          ? ""
+          : $(`#highestAttainmentInput${_educationDegree[i]}${x}`).val();
+        let AchievementInput = $(
+          `#${_educationDegree[i]}AchievementInput${x}`
+        ).val();
+        let educationInfo = {
+          schoolName: schoolName,
+          degree: degree,
+          gradsStart: gradsStart,
+          gradsEnd: gradsEnd,
+          isGraduate: isGraduate,
+          highestAttainment: highestAttainment,
+          AchievementInput: AchievementInput,
+        };
+        console.log("edu data: " + JSON.stringify(educationInfo));
+        // check if the form is not empty
+        if (schoolName && degree && gradsStart && gradsEnd) {
+          // Check if the degree already exists in the educationData dictionary
+          if (!educationData[_educationDegree[i]]) {
+            educationData[_educationDegree[i]] = [];
+          }
+
+          // Push the educationInfo object into the array for the appropriate degree
+          if (
+            !educationDataChecker(
+              educationInfo,
+              educationData,
+              _educationDegree[i]
+            )
+          ) {
+            console.log("pushed the edu data" + educationInfo);
+            educationData[_educationDegree[i]].push(educationInfo);
+
+            // Log the updated educationData dictionary to the console
+            console.log(educationData);
+          }
         }
       }
     }
@@ -101,4 +175,29 @@ $(document).ready(function () {
     }
     loadPage(pages[counter]);
   };
+});
+
+// submitting the form
+$("#submitForm").click(function () {
+  var combinedData = {
+    formData: formData,
+    childData: childData,
+    educationData: educationData,
+  };
+
+  $.ajax({
+    url: "your-endpoint-url",
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(combinedData),
+    success: function (response) {
+      // Handle success
+      console.log("Ajax request successful");
+      console.log(response);
+    },
+    error: function (xhr, status, error) {
+      // Handle error
+      console.error("Ajax request error:", status, error);
+    },
+  });
 });
