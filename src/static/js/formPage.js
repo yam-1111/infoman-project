@@ -41,7 +41,7 @@ $(document).ready(function () {
       let birthDay = $(`#childbirthDay${j}`).val();
       if (fullName && birthDay) {
         if (!childData.find((_child) => _child.fullName == fullName)) {
-          childData.push({ fullName: fullName, birthDay: birthDay});
+          childData.push({ fullName: fullName, birthDay: birthDay });
         }
       }
     }
@@ -58,7 +58,13 @@ $(document).ready(function () {
 
     console.log("reading education background");
     let _educationCounter = [];
-    let _educationDegree = ["elementary", "secondary", "vocational", "tertiary", "post"];
+    let _educationDegree = [
+      "elementary",
+      "secondary",
+      "vocational",
+      "tertiary",
+      "post",
+    ];
     for (let i = 0; i < _educationDegree.length; i++) {
       let educationCounter = $(`.${_educationDegree[i]}-form`).length;
       _educationCounter.push(educationCounter);
@@ -119,6 +125,7 @@ $(document).ready(function () {
       }
     }
 
+
     $("#parentContainer").fadeOut(100, function () {
       $(this).load("/static/html/form/" + page + ".html", function () {
         $(this).fadeIn(150);
@@ -144,7 +151,7 @@ $(document).ready(function () {
         if (counter == 2) {
           $("#nextButton").hide();
           $("#buttonContainer").append(
-            '<button type="submit" class="btn btn-success" id="submitForm">Submit Form</button>'
+            '<a href="javascript:void(0)" class="btn btn-success" id="submitForm">Submit Form</a>'
           );
         } else {
           $("#nextButton").show();
@@ -175,29 +182,4 @@ $(document).ready(function () {
     }
     loadPage(pages[counter]);
   };
-});
-
-// submitting the form
-$("#submitForm").click(function () {
-  var combinedData = {
-    formData: formData,
-    childData: childData,
-    educationData: educationData,
-  };
-
-  $.ajax({
-    url: "your-endpoint-url",
-    type: "POST",
-    contentType: "application/json",
-    data: JSON.stringify(combinedData),
-    success: function (response) {
-      // Handle success
-      console.log("Ajax request successful");
-      console.log(response);
-    },
-    error: function (xhr, status, error) {
-      // Handle error
-      console.error("Ajax request error:", status, error);
-    },
-  });
 });
