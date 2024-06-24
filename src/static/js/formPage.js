@@ -10,7 +10,7 @@ window.post = 0;
 
 // global data
 var formData = {};
-var childData = [];
+window.childData = [];
 var educationData = {};
 
 const pages = ["personal_info", "children", "education"];
@@ -41,7 +41,7 @@ $(document).ready(function () {
       let birthDay = $(`#childbirthDay${j}`).val();
       if (fullName && birthDay) {
         if (!childData.find((_child) => _child.fullName == fullName)) {
-          childData.push({ fullName: fullName, birthDay: birthDay });
+          childData.push({ fullName: fullName, birthDay: birthDay});
         }
       }
     }
@@ -58,7 +58,7 @@ $(document).ready(function () {
 
     console.log("reading education background");
     let _educationCounter = [];
-    let _educationDegree = ["elementary", "secondary", "tertiary", "post"];
+    let _educationDegree = ["elementary", "secondary", "vocational", "tertiary", "post"];
     for (let i = 0; i < _educationDegree.length; i++) {
       let educationCounter = $(`.${_educationDegree[i]}-form`).length;
       _educationCounter.push(educationCounter);

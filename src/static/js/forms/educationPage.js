@@ -1,7 +1,8 @@
-window.levels = ["elementary", "secondary", "tertiary", "post"];
+window.levels = ["elementary", "secondary", "vocational", "tertiary", "post"];
 window.counts = {
   elementary: 0,
   secondary: 0,
+  vocational : 0,
   tertiary: 0,
   post: 0,
 };
@@ -25,7 +26,7 @@ $(document).ready(function () {
     let AchievementInput = data.AchievementInput || "";
 
     return `
-      <div class="${level}-form row gap-3 align-items-center m-2" id="${level}Form${count}">
+      <div class="border-gray ${level}-form row gap-3 align-items-center rounded mt-3 m-2" id="${level}Form${count}">
         <div class="col-4">
           <div class="form-group">
             <label for="${level}Name${count}">School Name</label>
@@ -64,7 +65,7 @@ $(document).ready(function () {
             <input type="text" class="form-control" id="highestAttainmentInput${level}${count}" placeholder="Highest Attainment" value="${highestAttainment}">
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 mb-2">
           <label for="${level}AchievementInput${count}">Achievements / Awards / Honor Received</label>
           <input type="text" class="form-control" id="${level}AchievementInput${count}" value="${AchievementInput}">
         </div>
@@ -89,12 +90,7 @@ $(document).ready(function () {
 
       toggleHighestAttainment(counts[level], false, level);
 
-     /**TODO : fix the bug - when removing the 1st item it deletes all */
-      $(document).on("click", ".removeButton", function () {
-        let id = $(this).data("id");
-        let level = $(this).data("level");
-        $(`#${level}Form${id}`).remove();
-      });
+    
     });
 
     $(`#remove${capitalize(level)}Btn`).click(function () {
@@ -123,12 +119,15 @@ $(document).ready(function () {
           });
 
           toggleHighestAttainment(counts[level], education.isGraduate, level);
-
+           /**TODO : fix the bug - when removing the 1st item it deletes all */
           $(document).on("click", ".removeButton", function () {
             let id = $(this).data("id");
             let level = $(this).data("level");
-            $(`#${level}Form${id}`).remove();
-            educationData[level].splice(id - 1, 1);
+
+            if($(`#${level}SchoolName${id}`).val() != undefined) {
+              educationData[level].splice(id - 1, 1);
+              $(`#${level}Form${id}`).remove();
+            }
           });
         });
       }

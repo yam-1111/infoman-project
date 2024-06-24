@@ -49,6 +49,11 @@ source .venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
+### setting up the database
+
+Create a `.env` file on your root directory, not in the `/src`
+please follow the format on `.env.example`
+
 
 ## 👨 👩 Members
 

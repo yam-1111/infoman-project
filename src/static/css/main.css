@@ -9,8 +9,14 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+/*navbar*/
 .nv-transparent {
     background-color: rgba(255, 255, 255, 0.151);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* For Safari */
+}
+
+/* borders*/
+.border-gray {
+    border: 1px solid rgba(108, 117, 125, 0.6); /* 60% transparency */
 }

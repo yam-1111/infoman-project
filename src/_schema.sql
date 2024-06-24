@@ -1,3 +1,5 @@
+--  SQLITE SYNTAX
+
 DROP TABLE IF EXISTS 'personal_information';
 DROP TABLE IF EXISTS 'children';
 DROP TABLE IF EXISTS 'education';
