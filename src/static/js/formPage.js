@@ -16,12 +16,35 @@ var educationData = {};
 const pages = ["personal_info", "children", "education"];
 
 $(document).ready(function () {
+
+  // load the data from the DB
+  $.ajax({
+    url: "/user/data",
+    type: "GET",
+    success: function (data) {
+      console.log("data loaded");
+      Object.assign(formData, data.formData);
+    },
+    error: function (error) {
+      console.log("error loading data");
+      console.log(error);
+    },
+  });
+
+
   // Function to load content
   window.loadPage = (page) => {
+
     // getter on personal_info
     $("input, select, textarea")
       .not(
-        "#childrencontainer input, #childrencontainer select, #childrencontainer textarea, #elementary input, #elementary select, #elementary textarea, #secondary input, #secondary select, #secondary textarea, #college input, #college select, #college textarea, #post input, #post select, #post textarea"
+        `#childrenContainer input, #childrenContainer select,
+         #childrenContainer textarea, #elementaryContainer input, 
+         #elementaryContainer select, #elementaryContainer textarea,
+          #secondaryContainer input, #secondaryContainer select, #secondaryContainer textarea, 
+          #tertiaryContainer input, #tertiaryContainer select, #tertiaryContainer textarea,
+          #vocationalContainer input, #vocationalContainer select, #vocationalContainer textarea, 
+          #postContainer input, #postContainer select, #postContainer textarea`
       )
       .each(function () {
         if ($(this).is(":radio")) {

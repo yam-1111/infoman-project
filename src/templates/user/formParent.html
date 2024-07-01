@@ -1,32 +1,44 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block content %}
 <div class="bg-light">
-    <nav class="navbar sticky-top shadow-sm bg- nv-transparent">
-        <div class="container-fluid">
-          <a class="navbar-brand font-weight-bold" href="#">
-            <img src="{{url_for('static', filename='assets/csc_logo.png')}}" alt="" width="30" height="30" class="d-inline-block align-text-top">
-            Personal Data Sheet
-          </a>
-        </div>
-      </nav>
-
-    <div class="container mb-4">
-        <div class="row g-2">
-            <div class="col-lg-12">
-                    <form class="needs-validation mx-auto mt-5" action="">
-                    <div id="parentContainer" class="row g-2">
-                    </div>
-                </form>
-                <hr>
-                <div id="buttonContainer" class="d-flex justify-content-end gap-2">
-                    <a href="javascript:void(0)" id="prevButton" class="btn btn-secondary mr-2" onclick="prevPage()">Previous</a>
-                    <a href="javascript:void(0)" id="nextButton" class="btn btn-primary" onclick="nextPage()">Next</a>
-                  
-                </div>
-            </div>
-        </div>
+  <nav class="navbar sticky-top shadow-sm bg- nv-transparent">
+    <div class="container-fluid">
+      <a class="navbar-brand font-weight-bold" href="#">
+        <img src="{{url_for('static', filename='assets/csc_logo.png')}}" alt="" width="30" height="30"
+          class="d-inline-block align-text-top">
+        Personal Data Sheet
+      </a>
+      <div class="d-flex">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          {{session['name']}}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="{{url_for('apis.logout')}}">Log out</a></li>
+        </ul>
+      </div>
     </div>
+
+  </nav>
+
+  <div class="container mb-4">
+    <div class="row g-2">
+      <div class="col-lg-12">
+        <form class="needs-validation mx-auto mt-5" action="">
+          <div id="parentContainer" class="row g-2">
+          </div>
+        </form>
+        <hr>
+        <div id="buttonContainer" class="d-flex justify-content-end gap-2">
+          <a href="javascript:void(0)" id="prevButton" class="btn btn-secondary mr-2" onclick="prevPage()">Previous</a>
+          <a href="javascript:void(0)" id="nextButton" class="btn btn-primary" onclick="nextPage()">Next</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<script src="{{ url_for('static', filename='js/textFormatter.js') }}"></script>
 <script src="{{ url_for('static', filename='js/formPage.js') }}"></script>
 <script src="{{ url_for('static', filename='js/forms/submitPage.js') }}"></script>
 {%endblock%}

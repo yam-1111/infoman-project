@@ -26,7 +26,7 @@ $(document).ready(function () {
     let AchievementInput = data.AchievementInput || "";
 
     return `
-      <div class="border-gray ${level}-form row gap-3 align-items-center rounded mt-3 m-2" id="${level}Form${count}">
+      <div class="border-gray ${level}-form row gap-3 align-items-center rounded mt-3 m-2 mb-2" id="${level}Form${count}">
         <div class="col-4">
           <div class="form-group">
             <label for="${level}Name${count}">School Name</label>

@@ -14,7 +14,6 @@ Created and developed by the BSCS 2-1 Group 1 for Information Management. The CS
 * HTML, CSS and JS (Frontend of the website)
 * Daisy Ui, Bootstrap 5 and FontAwesome Icons (Frontend framework)
 * HTMX
-* Figma  
 
 
 <p align="left">
@@ -35,7 +34,7 @@ python3 -m venv .venv
 #### Windows
 
 ```
-source .venv/bin/activate
+.\venv\Scripts\activate
 ```
 
 #### Linux / Unix / Mac
@@ -53,6 +52,18 @@ pip install -r requirements.txt
 
 Create a `.env` file on your root directory, not in the `/src`
 please follow the format on `.env.example`
+
+```
+SECRET_KEY=<any_secret_key>
+ADMIN_EMAIL=<admin_email>
+ADMIN_PASSWORD=<admin_password>
+
+DB_PORT=3306
+DB_HOST=localhost
+DB_NAME=<awesome_db_name>
+DB_USERNAME=<username>
+DB_PASSWORD=<password>
+```
 
 
 ## 👨 👩 Members

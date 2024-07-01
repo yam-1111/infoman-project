@@ -10,6 +10,22 @@ $(document).ready(function() {
           childData: childData,
           educationData: educationData,
         };
-        console.log("combinedData: ", combinedData);
+        console.log(combinedData);
+        $.ajax({
+            url: '/user/submit',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(combinedData),
+            success: function (data) {
+                console.log("success: ", data);
+            },
+            error: function (err) {
+                console.log("error: ", err);
+            }
+        
+        })
     });
 });
+
+
+

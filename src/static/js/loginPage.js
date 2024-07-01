@@ -1,24 +1,76 @@
-console.log("i am executed")
-$(document).ready(function() {
-    // Function to load content
-    window.loadPage = function (page) {
-        $("#parentContainer").fadeIn(150, function() {
-            $(this).load("/static/html/login/" + page + ".html", function() {
-                // $(this).fadeIn(150);
-            });
-        });
-    }
-    // window.loadPage = function (page) {
-    //     $("#parentContainer").load("/static/html/login/" + page + ".html");
-    // }
+var signupData = {};
 
-    // Initial load
-    loadPage("login");
+console.log("I am executed");
+$(document).ready(function () {
 
-    // Handle navigation clicks
-    $(".nav-link").click(function(event) {
-        event.preventDefault();
-        var page = $(this).data("page");
-        loadPage(page);
+ // Handle signups
+  window.submitSignupForm = (event) => {
+    event.preventDefault();
+    signupData = {}; // Clear previous data
+    let isValid = true; // Track form validity
+
+    $("input, select, textarea").each(function () {
+      if ($(this).is(":radio")) {
+        if ($(this).is(":checked")) {
+          signupData[$(this).attr("name")] = $(this).val();
+        }
+      } else {
+        signupData[$(this).attr("name")] = $(this).val();
+      }
+
+      // Check if the field is empty
+      if (!$(this).val()) {
+        isValid = false;
+        $("#signupAlertError").show().text("Please fill out all fields");
+      }
     });
+
+    if (isValid) {
+      $("#signupAlertError").hide().text("");
+      $.ajax({
+        url: "/signup",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(signupData),
+        success: function (data) {
+          console.log("success: ", data.status);
+          location.reload();
+        },
+        error: function (xhr, err) {
+          let errorMessage = xhr.responseJSON
+            ? xhr.responseJSON.error
+            : "An error occurred";
+          $("#signupAlertError").show().text(`Error: ${errorMessage}`);
+        },
+      });
+    }
+  };
+
+  // Handle logins
+  $('#loginForm').submit(function (event) {
+    event.preventDefault();
+
+    // Serialize form data into JSON object
+    let formData = {
+        email_address: $('#loginEmail').val(),
+        password: $('#loginPassword').val()
+    };
+
+    // Send AJAX request
+    $.ajax({
+        url: '/login',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function (data) {
+            console.log('success: ', data);
+            window.location.href = '/user/forms';
+        },
+        error: function (xhr, err) {
+            let errorMessage = xhr.responseJSON ? xhr.responseJSON.error : 'An error occurred';
+            $('#loginAlertError').show().text(`Error: ${errorMessage}`);
+        }
+    });
+});
+
 });
