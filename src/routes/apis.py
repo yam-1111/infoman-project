@@ -104,7 +104,8 @@ def signup():
 def logout():
     session.clear()
     return redirect(url_for('apis.login'))
-1
+
+
 # retrieve the user's information
 @apis.get('/user/data')
 def get_user():
@@ -116,4 +117,29 @@ def get_user():
         user = cursor.fetchone()
         return jsonify(personInformation('success', user)), 200
     return abort(418)
+
+# forgot password
+@apis.route('/retrieve', methods=['GET', 'PUT'])
+def forgotPassword():
+    if request.method == 'GET':
+        return render_template('user/login/forgotpw.html')
+    
+    if request.method == 'PUT':
+        data = request.get_json()
+        # retrieve the information
+        cursor.execute("SELECT * FROM personal_information WHERE Email_Address = %s AND Date_Of_Birth = %s", 
+        (data['email_address'], data['dataOfBirth']))
+        user = cursor.fetchone()
+        print(user is None)
+        if user is None:
+            return jsonify({'error': 'User does not exist with the email nor date of birth'}), 404
+        
+        # update the password
+        if check_password_hash(user[-1], data['password']):
+            return jsonify({'error': 'New password cannot be the same as the old password'}), 418
+        
+        hash_password = generate_password_hash(data['password'], method='pbkdf2:sha256')
+        cursor.execute("UPDATE personal_information SET password = %s WHERE CSC_ID_No= %s", (hash_password, user[0]))
+        return jsonify({'status': 'success'})
+
     

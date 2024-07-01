@@ -34,7 +34,7 @@ $(document).ready(function () {
         data: JSON.stringify(signupData),
         success: function (data) {
           console.log("success: ", data.status);
-          location.reload();
+          window.location.href = '/login';
         },
         error: function (xhr, err) {
           let errorMessage = xhr.responseJSON

@@ -1,0 +1,42 @@
+{% extends "user/loginParent.html" %}
+{% block login_content %}
+<div class="px-5 py-3 ms-xl-4">
+    <img src="/static/assets/csc_logo.png" alt="" class="logo-image" style="width: 100px; height: auto;">
+    <span class="h1 fw-bold mb-0"></span>
+</div>
+<div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+
+    <form id="forgotForm" style="width: 23rem;">
+
+        <h2 class="fw-normal mb-3 pb-3">Forgot password</h2>
+        <div class="alert alert-danger" id="forgotAlertError" role="alert" style="display: none;"></div>
+        <div class="form-outline mb-4">
+            <input type="email" class="form-control form-control-lg" id="forgotEmail"
+                name="email_address"
+                placeholder="juandelacruz@gmail.com" />
+            <label class="text-muted form-label" for="forgotEmail">Email address</label>
+        </div>
+        <div class="mb-4">
+            <input type="date" class="form-control form-control-lg" id="dateOfBirth" name="dateOfBirth" />
+            <label class="text-muted form-label" for="dateOfBirth">Date of Birth</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="password" class="password form-control form-control-lg" id="forgotPassword" name="password"/>
+            <label class="text-muted form-label" for="forgotPassword">New Password</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="password" class="password form-control form-control-lg" id="forgotPassword2" name="password"/>
+            <label class="text-muted form-label" for="forgotPassword2">Repeat New Password</label>
+        </div>
+        <div class="pt-1 mb-4">
+            <div class="d-grid">
+                <button class="btn btn-primary btn-lg btn-block" id="forgotBtn" type="button">
+                    Retrieve my account</button>
+            </div>
+        </div>
+        <p>Don't have an account? <a href="{{url_for('apis.signup')}}" class="link-info" >Register here</a></p>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='js/forgotPage.js') }}"></script>
+{% endblock %}
