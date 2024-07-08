@@ -138,3 +138,20 @@ class personalInformation:
         """
         cursor.execute('SELECT COUNT(*) FROM personal_information')
         return cursor.fetchone()[0]
+    
+    def delete(self, query_condition : str):
+        """
+        Deletes a row in the personal_information table.
+
+        Args:
+            query_condition : str : the SQL condition for deleting specific rows (i.e., "CSC_ID_No = <value>")
+
+        Returns : None
+        """
+        sql = f"DELETE FROM personal_information WHERE {query_condition}"
+        try:
+            cursor.execute(sql)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise e
