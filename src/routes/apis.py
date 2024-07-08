@@ -42,8 +42,8 @@ def login():
                 "password"
             ] == getenv("ADMIN_PASSWORD"):
                 print("goes here")
-                session["role"] = "admin"
-                return redirect(url_for("admin.index"))
+                session["role"], session['name'] = ("admin", "admin")
+                return jsonify({key: value for key, value in session.items()}), 200
 
             # check if the user is in the personal_information table
             user = personalInformation().fetchone(
@@ -63,8 +63,7 @@ def login():
                 user["cscIdNo"],
                 "user",
             )
-            return redirect(url_for("user.form"))
-
+            return jsonify({key: value for key, value in session.items()}), 200
         except Exception as e:
             print(f"Error: {e}")
             return jsonify({"error": str(e)}), 418
@@ -86,7 +85,7 @@ def signup():
         try:
             if (
                 personalInformation().fetchone(
-                    query="SELECT * FROM personal_information WHERE Email_Address = %s OR Date_Of_Birth = %s",
+                    query="SELECT * FROM personal_information WHERE Email_Address = %s AND Date_Of_Birth = %s",
                     query_args=(data["email_address"], data["dateOfBirth"]),
                 )
             ) or data["email_address"] == getenv("ADMIN_EMAIL"):
@@ -117,6 +116,9 @@ def get_user():
 
 
 # forgot password
+# TODO: Implement the forgot password bug
+
+
 @apis.route("/retrieve", methods=["GET", "PUT"])
 def forgotPassword():
     if request.method == "GET":
@@ -124,10 +126,14 @@ def forgotPassword():
 
     if request.method == "PUT":
         data = request.get_json()
-        user = personalInformation.fetchone(
-            "SELECT * FROM personal_information WHERE Email_Address = %s AND Date_Of_Birth = %s",
-            (data["email_address"], data["dataOfBirth"]),
-        )
+        try:
+            user = personalInformation.fetchone(
+                "SELECT * FROM personal_information WHERE Email_Address = %s AND Date_Of_Birth = %s",
+                ("jd.santos@gmail.com", "1995-01-01"),
+            )
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 418
         print(f"{data}\n\nUser: {user}\n\n")
         # retrieve the information
         # user = personalInformation.fetchone(

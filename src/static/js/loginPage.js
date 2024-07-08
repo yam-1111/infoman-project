@@ -2,8 +2,7 @@ var signupData = {};
 
 console.log("I am executed");
 $(document).ready(function () {
-
- // Handle signups
+  // Handle signups
   window.submitSignupForm = (event) => {
     event.preventDefault();
     signupData = {}; // Clear previous data
@@ -34,7 +33,7 @@ $(document).ready(function () {
         data: JSON.stringify(signupData),
         success: function (data) {
           console.log("success: ", data.status);
-          window.location.href = '/login';
+          window.location.href = "/login";
         },
         error: function (xhr, err) {
           let errorMessage = xhr.responseJSON
@@ -47,30 +46,35 @@ $(document).ready(function () {
   };
 
   // Handle logins
-  $('#loginForm').submit(function (event) {
+  $("#loginForm").submit(function (event) {
     event.preventDefault();
 
     // Serialize form data into JSON object
     let formData = {
-        email_address: $('#loginEmail').val(),
-        password: $('#loginPassword').val()
+      email_address: $("#loginEmail").val(),
+      password: $("#loginPassword").val(),
     };
 
     // Send AJAX request
     $.ajax({
-        url: '/login',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(formData),
-        success: function (data) {
-            console.log('success: ', data);
-            window.location.href = '/user/forms';
-        },
-        error: function (xhr, err) {
-            let errorMessage = xhr.responseJSON ? xhr.responseJSON.error : 'An error occurred';
-            $('#loginAlertError').show().text(`Error: ${errorMessage}`);
+      url: "/login",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(formData),
+      success: function (data) {
+        if (data.role === "admin") {
+          window.location.href = "/admin";
+        } else {
+            window.location.href = "/user/forms";
         }
-    });
-});
+      },
 
+      error: function (xhr, err) {
+        let errorMessage = xhr.responseJSON
+          ? xhr.responseJSON.error
+          : "An error occurred";
+        $("#loginAlertError").show().text(`Error: ${errorMessage}`);
+      },
+    });
+  });
 });

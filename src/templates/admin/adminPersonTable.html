@@ -1,0 +1,173 @@
+{% extends "/admin/adminBase.html" %}
+{% block admincontent %}
+<div class="card shadow bg-secondary mb-2">
+    <h4 class="card-title text-white p-2">
+        Registed users
+        <span class="badge bg-primary">{{count}}</span>
+    </h4>
+
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <!--table-->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>CSC ID No</th>
+                    <th>Full Name</th>
+                    <th>Date of Birth</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in persons %}
+                <tr>
+                    <td>{{ person.cscIdNo }}</td>
+                    <td>{{ person.fullName }}</td>
+                    <td>{{ person.dateOfBirth }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#viewModal{{ person.cscIdNo }}">
+                            View all detail
+                        </button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#editModal{{ person.cscIdNo }}">
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal{{ person.cscIdNo }}">
+                            Delete
+                        </button>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#changePasswordModal{{ person.cscIdNo }}">
+                            <i class="fa fa-key" aria-hidden="true"></i> Change password
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!---->
+
+        <!--view modal-->
+        {% for person in persons %}
+        <div class="modal fade" id="viewModal{{ person.cscIdNo }}" tabindex="-1"
+            aria-labelledby="viewModalLabel{{ person.cscIdNo }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewModalLabel{{ person.cscIdNo }}">View all person Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>CSC ID No:</strong> {{ person.cscIdNo }}</p>
+                        <p><strong>Full Name:</strong> {{ person.fullName }}</p>
+                        <p><strong>Date of Birth:</strong> {{ person.dateOfBirth }}</p>
+                        <p><strong>Place of Birth:</strong> {{ person.placeOfBirth }}</p>
+                        <p><strong>Sex:</strong> {{ person.sex }}</p>
+                        <p><strong>Civil Status:</strong> {{ person.civilStatus }}</p>
+                        <p><strong>Height (m):</strong> {{ person.height }}</p>
+                        <p><strong>Weight (kg):</strong> {{ person.weight }}</p>
+                        <p><strong>Blood Type:</strong> {{ person.bloodType }}</p>
+                        <p><strong>GSIS ID No:</strong> {{ person.gsis }}</p>
+                        <p><strong>PAGIBIG ID No:</strong> {{ person.pagibig }}</p>
+                        <p><strong>PHILHEALTH No:</strong> {{ person.philhealth }}</p>
+                        <p><strong>SSS No:</strong> {{ person.sss }}</p>
+                        <p><strong>TIN No:</strong> {{ person.tin }}</p>
+                        <p><strong>Agency Employee No:</strong> {{ person.agencyemployee }}</p>
+                        <p><strong>Citizenship:</strong> {{ person.citizenship }}</p>
+                        <p><strong>Residential Address:</strong> {{ person.residential_address }}</p>
+                        <p><strong>Permanent Address:</strong> {{ person.permanent_address }}</p>
+                        <p><strong>Telephone No:</strong> {{ person.telephone_no }}</p>
+                        <p><strong>Mobile No:</strong> {{ person.mobile_no }}</p>
+                        <p><strong>Email Address:</strong> {{ person.email_address }}</p>
+                        <p><strong>Father Full Name:</strong> {{ person.fatherFullName }}</p>
+                        <p><strong>Mother Full Name:</strong> {{ person.motherFullName }}</p>
+                        <p><strong>Spouse Full Name:</strong> {{ person.spouseFullName }}</p>
+                        <p><strong>Spouse Occupation:</strong> {{ person.spouseOccupation }}</p>
+                        <p><strong>Spouse Business Address:</strong> {{ person.spouseBusinessAddress }}</p>
+                        <p><strong>Spouse Telephone Number:</strong> {{ person.spouseBusinessNumber }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--change password-->
+        <div class="modal fade" id="changePasswordModal{{ person.cscIdNo }}" tabindex="-1"
+            aria-labelledby="changePasswordModalLabel{{ person.cscIdNo }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changePasswordModalLabel{{ person.cscIdNo }}">Change Password for {{
+                            person.fullName }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="newPassword{{ person.cscIdNo }}" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword{{ person.cscIdNo }}"
+                                    name="new_password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword{{ person.cscIdNo }}" class="form-label">Confirm
+                                    Password</label>
+                                <input type="password" class="form-control" id="confirmPassword{{ person.cscIdNo }}"
+                                    name="confirm_password" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class=" changePasswordBtn btn btn-warning"
+                                    data-id="{{ person.cscIdNo }}">Change
+                                    Password</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+        <!---->
+    </div>
+</div>
+
+
+<!-- <style>
+        .table-container {
+            max-height: 500px; /* Adjust max-height as needed */
+            overflow-y: auto; /* Enable vertical scrollbar */
+        }
+    </style> -->
+
+<script>
+    $(document).ready(() => {
+        $(".changePasswordBtn").click(function () {
+            var dataId = $(this).attr("data-id");
+            var newPassword = $("#newPassword" + dataId).val();
+            var confirmPassword = $("#confirmPassword" + dataId).val();
+            if (newPassword != confirmPassword) {
+                alert("Password does not match");
+                return;
+            }
+            else {
+                $.ajax({
+                    url: "/admin/change_password",
+                    type: "POST",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        cscIdNo: dataId,
+                        newPassword: newPassword
+                    }),
+                    success: function (response) {
+                        alert(response);
+                        location.reload();
+                    }
+                });
+            }
+        });
+    })
+</script>
+{% endblock %}

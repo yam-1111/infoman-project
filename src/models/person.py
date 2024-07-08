@@ -43,7 +43,6 @@ class personalInformation:
         Updates value in the database.
 
         Args:
-            query : str : the SQL query to be executed (not used in this implementation)
             query_condition : str : the SQL condition for updating specific rows (i.e., "CSC_ID_No = <value>")
 
         Returns : None
@@ -129,3 +128,13 @@ class personalInformation:
         except Exception as e:
             print(str(e))
             return {}
+
+    def count(self):
+        """
+        counts the number of rows in the personal_information table
+
+        Returns: 
+            int : the number of rows in the personal_information table
+        """
+        cursor.execute('SELECT COUNT(*) FROM personal_information')
+        return cursor.fetchone()[0]

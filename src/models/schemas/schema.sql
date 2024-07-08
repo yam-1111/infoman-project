@@ -45,7 +45,9 @@ CREATE TABLE IF NOT EXISTS education (
   Highest_Level VARCHAR(150),
   Year_Graduated DATE,
   Scholarship_Acad_Honors VARCHAR(20),
-  FOREIGN KEY (CSC_ID_No) REFERENCES personal_information(CSC_ID_No)
+  FOREIGN KEY (CSC_ID_No) 
+    REFERENCES personal_information(CSC_ID_No) 
+    ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS children (
@@ -53,5 +55,7 @@ CREATE TABLE IF NOT EXISTS children (
   CSC_ID_No INT NOT NULL,
   Name_of_Children VARCHAR(30),
   Children_Date_of_Birth DATE,
-  FOREIGN KEY (CSC_ID_No) REFERENCES personal_information(CSC_ID_No)
+  FOREIGN KEY (CSC_ID_No) 
+    REFERENCES personal_information(CSC_ID_No) 
+    ON DELETE CASCADE
 );
