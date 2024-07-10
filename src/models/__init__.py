@@ -28,5 +28,5 @@ db = mysql.connect(
     database = getenv('DB_NAME')
 )
 
-cursor = db.cursor()
+cursor = db.cursor(buffered=True)
 create_db()

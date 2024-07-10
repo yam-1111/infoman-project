@@ -1,7 +1,10 @@
 {% extends "user/loginParent.html" %}
 {% block login_content %}
 <div class="px-5 py-3 ms-xl-4">
-    <img src="/static/assets/csc_logo.png" alt="" class="logo-image" style="width: 100px; height: auto;">
+    <a href="{{ url_for('apis.login') }}">
+        <img src="/static/assets/csc_logo.png" alt="" class="logo-image" style="width: 100px; height: auto;">
+        <span class="h1 fw-bold mb-0"></span>
+    </a>
     <span class="h1 fw-bold mb-0"></span>
 </div>
 <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">

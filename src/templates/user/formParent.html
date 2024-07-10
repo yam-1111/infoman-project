@@ -9,13 +9,19 @@
         Personal Data Sheet
       </a>
       <div class="d-flex">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          {{session['name']}}
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="{{url_for('apis.logout')}}">Log out</a></li>
-        </ul>
+        <div class="ms-auto d-flex align-items-center gap-2">
+          <span>{{session['name']}}</span>
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fas fa-user"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{{url_for('apis.logout')}}">Log out</a></li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
 
