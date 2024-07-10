@@ -1,0 +1,119 @@
+{% extends "/admin/adminBase.html" %}
+{% block admincontent %}
+<div class="card shadow bg-secondary mb-2">
+    <h4 class="card-title text-white p-2">
+        Education Table
+        <span class="badge bg-primary">{{count}}</span>
+    </h4>
+
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <!--table-->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Education ID</th>
+                    <th>CSC ID No</th>
+                    <th>Education Level</th>
+                    <th>School Name</th>
+                    <th>Education Degree</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Highest Level</th>
+                    <th>Year Graduated</th>
+                    <th>Scholarship/Awards</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for education in educ%}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>{{ education.Education_Level }}</td>
+                    <td>{{ education.School_Name }}</td>
+                    <td>{{ education.Education_Degree }}</td>
+                    <td>{{ education.Education_Start }}</td>
+                    <td>{{ education.Education_End }}</td>
+                    <td>{{ education.Highest_Level }}</td>
+                    <td>{{ education.Year_Graduated }}</td>
+                    <td>{{ education.Scholarship_Acad_Honors }}</td>
+                    <td>
+                    <button type="button" class="btn btn-success">
+                        Edit
+                    </button>
+                    <button type="button" class="deleteBtn btn btn-danger">
+                        Delete
+                    </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  
+</div>
+</div>
+</div>
+
+<!---->
+</div>
+</div>
+
+
+<style>
+        .table-container {
+            max-height: 500px; /* Adjust max-height as needed */
+            overflow-y: auto; /* Enable vertical scrollbar */
+        }
+    </style>
+
+<script>
+    $(document).ready(() => {
+        $(".changePasswordBtn").click(function () {
+            var dataId = $(this).attr("data-id");
+            var newPassword = $("#newPassword" + dataId).val();
+            var confirmPassword = $("#confirmPassword" + dataId).val();
+            if (newPassword != confirmPassword) {
+                alert("Password does not match");
+                return;
+            }
+            else {
+                $.ajax({
+                    url: "/admin/change_password",
+                    type: "POST",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        cscIdNo: dataId,
+                        newPassword: newPassword
+                    }),
+                    success: function (response) {
+                        alert(response);
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+        $('.deleteBtn').click(function () {
+            var dataId = $(this).attr("data-id");
+            if (confirm("Are you sure you want to delete this person?")) {
+                $.ajax({
+                    url: "/admin/delete/personal_information",
+                    type: "DELETE",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        cscIdNo: dataId
+                    }),
+                    success: function (response) {
+                        alert("Succesfully deleted the person");
+                        location.reload();
+                    }
+                });
+            }
+        });
+    })
+</script>
+{% endblock %}

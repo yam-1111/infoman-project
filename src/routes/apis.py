@@ -16,6 +16,8 @@ from ..models import cursor, db
 # utils
 from ..models.personUtils import *
 from ..models.person import personalInformation
+from ..models.education import Education
+from ..models.children import Children
 
 apis = Blueprint(
     "apis", __name__, template_folder="../templates", static_folder="../static"
@@ -50,7 +52,6 @@ def login():
                 query="SELECT * FROM personal_information WHERE Email_Address = %s",
                 query_args=(data["email_address"],),
             )
-            print(check_password_hash(user["password"], data["password"]))
             if user == {}:
                 return jsonify({"error": "User does not exist"}), 404
 
@@ -110,9 +111,31 @@ def logout():
 def get_user():
     if session.get("role") == "user":
         user = personalInformation().fetchone(query_args=(session.get("id"),))
-        print(user)
-        return jsonify({"status": "success", "formData": user}), 200
+        education_records = Education().fetch(
+            query="SELECT * FROM education WHERE CSC_ID_No=%s", 
+            query_args=(session.get("id"),)
+        )
+        
+        # Remove CSC_ID_No from each record
+        # for record in education_records:
+        #     record.pop('CSC_ID_No', None)
+        
+        # Initialize dictionary to store education levels
+        education = {
+            "elementary": [],
+            "secondary": [],
+            "college": [],
+            "graduate_studies": []
+        }
+        
+        # Categorize each record based on its educationalLevel
+        for record in education_records:
+            level = record.get("educationLevel")
+            if level in education:
+                education[level].append(record)
+        return jsonify({"status": "success", "formData": user, "educationData": education}), 200
     return abort(418)
+
 
 
 # forgot password
@@ -127,41 +150,21 @@ def forgotPassword():
     if request.method == "PUT":
         data = request.get_json()
         try:
-            user = personalInformation.fetchone(
-                "SELECT * FROM personal_information WHERE Email_Address = %s AND Date_Of_Birth = %s",
-                ("jd.santos@gmail.com", "1995-01-01"),
+            user = personalInformation().fetchone(
+                query = "SELECT * FROM personal_information WHERE Email_Address = %s AND Date_Of_Birth = %s",
+                query_args=(data["email_address"], data["dataOfBirth"])
             )
+            if user == {}:
+                return jsonify({"error": "User does not exist with the email address nor date of birth"}), 404
+            if check_password_hash(user["password"], data["password"]):
+                return jsonify({"error": "Password cannot be the same as the old password"}), 403
 
+            # update the password column
+            print('csc id' , user)
+            personalInformation(
+                **{"password": generate_password_hash(data["password"], 'pbkdf2:sha256')}
+            ).update(f'CSC_ID_No={user["cscIdNo"]}')
+            
         except Exception as e:
             return jsonify({"error": str(e)}), 418
-        print(f"{data}\n\nUser: {user}\n\n")
-        # retrieve the information
-        # user = personalInformation.fetchone(
-        #     "SELECT * FROM personal_information WHERE Email_Address = %s AND Date_Of_Birth = %s",
-        #     (data["email_address"], data["dataOfBirth"]),
-        # )
-
-        # if user == {}:
-        #     return (
-        #         jsonify(
-        #             {"error": "User does not exist with the email nor date of birth"}
-        #         ),
-        #         404,
-        #     )
-
-        # # update the password
-        # if check_password_hash(user[-1], data["password"]):
-        #     return (
-        #         jsonify(
-        #             {"error": "New password cannot be the same as the old password"}
-        #         ),
-        #         418,
-        #     )
-        # personalInformation(
-        #     **{
-        #         "password": generate_password_hash(
-        #             data["password"], method="pbkdf2:sha256"
-        #         )
-        #     }
-        # ).update("CSC_ID_No = %s", (user["CSC_ID_No"],))
-        return jsonify({"status": "fail"})
+        return jsonify({"status": "succefully changed the password"})

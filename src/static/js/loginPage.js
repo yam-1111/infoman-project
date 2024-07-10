@@ -33,6 +33,7 @@ $(document).ready(function () {
         data: JSON.stringify(signupData),
         success: function (data) {
           console.log("success: ", data.status);
+          $("#signupAlertSuccess").show().text(`Succesfully created account!`);
           window.location.href = "/login";
         },
         error: function (xhr, err) {

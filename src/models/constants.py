@@ -41,11 +41,14 @@ CHILDREN_PARSER_DICT = {
 }
 
 EDUCATION_PARSER_DICT = {
-    "cscIdNo": "CSC_ID_No",
-    "level": "Level",
-    "school": "School",
-    "degree": "Degree",
+    "Education_ID" : "Education_ID",
+    "CSC_ID_No": "CSC_ID_No",
+    "level": "Education_Level",
+    "schoolName": "School_Name",
+    "educationLevel" : "Education_Level",
+    "gradsEnd" : "Education_End",
+    "gradsStart" : "Education_Start",
+    "degree": "Education_Degree",
     "yearGraduated": "Year_Graduated",
-    "scholarship": "Scholarship"
-
+    "AchievemmentInput" : "Scholarship_Acad_Honors",
 }

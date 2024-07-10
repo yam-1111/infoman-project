@@ -72,6 +72,6 @@ DB_PASSWORD=<password>
 
 * Aira Jayoma
 
-* Kristina Amor Marzan
+* [Kristina Amor Marzan](https://github.com/Kris-Amor)
 
 * Joanna Salvador
