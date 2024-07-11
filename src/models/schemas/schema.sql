@@ -45,6 +45,8 @@ CREATE TABLE IF NOT EXISTS education (
   Highest_Level VARCHAR(150),
   Year_Graduated DATE,
   Scholarship_Acad_Honors VARCHAR(20),
+  -- prevent duplicate rows
+  UNIQUE KEY unique_cols (Education_Level, School_Name, Education_Degree),
   FOREIGN KEY (CSC_ID_No) 
     REFERENCES personal_information(CSC_ID_No) 
     ON DELETE CASCADE

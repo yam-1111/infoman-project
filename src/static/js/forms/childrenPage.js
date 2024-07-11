@@ -18,13 +18,13 @@ $(document).ready(function () {
       <div class="border-gray child-form row gap-2 align-items-center rounded mt-3 p-2" id="childForm${childCounter}" data-id="${childCounter}">
           <div class="col-4">
               <div class="form-group">
-                  <label for="fullName${childCounter}">Full Name</label>
+                  <label for="fullName${childCounter}">Children Full Name</label>
                   <input type="text" class="form-control" placeholder="Children Name" id="childfullName${childCounter}" name="childfullName${childCounter}" value="${fullName}" required>
               </div>
           </div>
           <div class="col-4">
               <div class="form-group">
-                  <label for="birthDay${childCounter}">Birth Day</label>
+                  <label for="birthDay${childCounter}">Children Birthday</label>
                   <input type="date" class="form-control" id="childbirthDay${childCounter}" name="childbirthDay${childCounter}" value="${birthDay}" required>
               </div>
           </div>

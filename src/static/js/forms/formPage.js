@@ -16,14 +16,15 @@ var educationData = {};
 const pages = ["personal_info", "children", "education"];
 
 $(document).ready(function () {
-
   // load the data from the DB
   $.ajax({
     url: "/user/data",
     type: "GET",
     success: function (data) {
       console.log("data loaded");
-      Object.assign(formData, data.formData);
+      Object.assign(formData || {}, data.formData);
+      Object.assign(educationData || {}, data.educationData);
+      Object.assign(childData || {}, data.childData);
     },
     error: function (error) {
       console.log("error loading data");
@@ -31,20 +32,17 @@ $(document).ready(function () {
     },
   });
 
-
   // Function to load content
   window.loadPage = (page) => {
-
     // getter on personal_info
     $("input, select, textarea")
+    // Exclude the inputs in the education forms and also full name and email address to avoid overwriting the data
       .not(
-        `#childrenContainer input, #childrenContainer select,
-         #childrenContainer textarea, #elementaryContainer input, 
-         #elementaryContainer select, #elementaryContainer textarea,
-          #secondaryContainer input, #secondaryContainer select, #secondaryContainer textarea, 
-          #tertiaryContainer input, #tertiaryContainer select, #tertiaryContainer textarea,
-          #vocationalContainer input, #vocationalContainer select, #vocationalContainer textarea, 
-          #postContainer input, #postContainer select, #postContainer textarea`
+        `#fullName, #email_address, #elementaryContainer input, #elementaryContainer select, #elementaryContainer textarea,
+       #secondaryContainer input, #secondaryContainer select, #secondaryContainer textarea, 
+       #vocationalContainer input, #vocationalContainer select, #vocationalContainer textarea, 
+       #collegeContainer input, #collegeContainer select, #collegeContainer textarea, 
+       #graduate_studiesContainer input, #graduate_studiesContainer select, #graduate_studiesContainer textarea`
       )
       .each(function () {
         if ($(this).is(":radio")) {
@@ -71,10 +69,12 @@ $(document).ready(function () {
 
     // getter on education
     function educationDataChecker(jsonObject, nestedJson, key) {
+      const relevantKeys = ["schoolName", "degree", "gradsStart", "gradsEnd"];
+    
       if (nestedJson[key]) {
-        return nestedJson[key].some(
-          (item) => JSON.stringify(item) === JSON.stringify(jsonObject)
-        );
+        return nestedJson[key].some((item) => {
+          return relevantKeys.every((k) => jsonObject[k] === item[k]);
+        });
       }
       return false;
     }
@@ -85,8 +85,8 @@ $(document).ready(function () {
       "elementary",
       "secondary",
       "vocational",
-      "tertiary",
-      "post",
+      "college",
+      "graduate_studies",
     ];
     for (let i = 0; i < _educationDegree.length; i++) {
       let educationCounter = $(`.${_educationDegree[i]}-form`).length;
@@ -107,18 +107,21 @@ $(document).ready(function () {
         let isGraduate = $(`#${_educationDegree[i]}Graduate${x}`).is(
           ":checked"
         );
-        let highestAttainment = isGraduate
-          ? ""
-          : $(`#highestAttainmentInput${_educationDegree[i]}${x}`).val();
+        let yearGraduated = isGraduate ? gradsEnd : "";
+        let highestAttainment = !isGraduate
+          ? $(`#highestAttainmentInput${_educationDegree[i]}${x}`).val()
+          : "";
         let AchievementInput = $(
           `#${_educationDegree[i]}AchievementInput${x}`
         ).val();
         let educationInfo = {
+          educationLevel : _educationDegree[i],
           schoolName: schoolName,
           degree: degree,
           gradsStart: gradsStart,
           gradsEnd: gradsEnd,
           isGraduate: isGraduate,
+          yearGraduated: yearGraduated,
           highestAttainment: highestAttainment,
           AchievementInput: AchievementInput,
         };
@@ -147,7 +150,6 @@ $(document).ready(function () {
         }
       }
     }
-
 
     $("#parentContainer").fadeOut(100, function () {
       $(this).load("/static/html/form/" + page + ".html", function () {

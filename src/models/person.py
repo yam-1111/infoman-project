@@ -85,6 +85,7 @@ class personalInformation:
         """
         try:
             # fetch one value from the personal_information table
+            print(query, query_args)
             cursor.execute(query, query_args)
             fetched_row = cursor.fetchone()
 

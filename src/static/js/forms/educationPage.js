@@ -1,10 +1,16 @@
-window.levels = ["elementary", "secondary", "vocational", "tertiary", "post"];
+window.levels = [
+  "elementary",
+  "secondary",
+  "vocational",
+  "college",
+  "graduate_studies",
+];
 window.counts = {
   elementary: 0,
   secondary: 0,
-  vocational : 0,
-  tertiary: 0,
-  post: 0,
+  vocational: 0,
+  college: 0,
+  graduate_studies: 0,
 };
 
 $(document).ready(function () {
@@ -27,6 +33,8 @@ $(document).ready(function () {
 
     return `
       <div class="border-gray ${level}-form row gap-3 align-items-center rounded mt-3 m-2 mb-2" id="${level}Form${count}">
+
+        <input type="hidden" value="${level}" class="educationLevel" name="educationLevel">
         <div class="col-4">
           <div class="form-group">
             <label for="${level}Name${count}">School Name</label>
@@ -54,7 +62,7 @@ $(document).ready(function () {
         <div class="form-group row">
           <div class="col-sm-5">
             <div class="form-check">
-              <input class="form-check-input graduate-checkbox" type="checkbox" id="${level}Graduate${count}" data-id="${count}" data-level="${level}" ${isGraduate ? 'checked' : ''}>
+              <input class="form-check-input graduate-checkbox" type="checkbox" id="${level}Graduate${count}" data-id="${count}" data-level="${level}" ${isGraduate ? "checked" : ""}>
               <label class="form-check-label" for="${level}Graduate${count}">Graduated</label>
             </div>
           </div>
@@ -76,21 +84,23 @@ $(document).ready(function () {
     `;
   }
 
-  levels.forEach(level => {
+  levels.forEach((level) => {
     $(`#add${capitalize(level)}Btn`).click(function () {
       counts[level]++;
       let form = createForm(level, counts[level]);
       $(`#${level}Container`).append(form);
 
-      $(document).on("change", `#${level}Graduate${counts[level]}`, function () {
-        let id = $(this).data("id");
-        let isChecked = $(this).is(":checked");
-        toggleHighestAttainment(id, isChecked, level);
-      });
+      $(document).on(
+        "change",
+        `#${level}Graduate${counts[level]}`,
+        function () {
+          let id = $(this).data("id");
+          let isChecked = $(this).is(":checked");
+          toggleHighestAttainment(id, isChecked, level);
+        }
+      );
 
       toggleHighestAttainment(counts[level], false, level);
-
-    
     });
 
     $(`#remove${capitalize(level)}Btn`).click(function () {
@@ -104,35 +114,45 @@ $(document).ready(function () {
   }
 
   function populateEducationForms() {
-    console.log('Populating education forms');
-    window.levels.forEach(level => {
+    console.log("Populating education forms");
+    window.levels.forEach((level) => {
       if (educationData[level]) {
-        educationData[level].forEach(education => {
+        educationData[level].forEach((education) => {1
           counts[level]++;
           let form = createForm(level, counts[level], education);
           $(`#${level}Container`).append(form);
 
-          $(document).on("change", `#${level}Graduate${counts[level]}`, function () {
-            let id = $(this).data("id");
-            let isChecked = $(this).is(":checked");
-            toggleHighestAttainment(id, isChecked, level);
-          });
+          $(document).on(
+            "change",
+            `#${level}Graduate${counts[level]}`,
+            function () {
+              let id = $(this).data("id");
+              let isChecked = $(this).is(":checked");
+              toggleHighestAttainment(id, isChecked, level);
+            }
+          );
 
           toggleHighestAttainment(counts[level], education.isGraduate, level);
-           /**TODO : fix the bug - when removing the 1st item it deletes all */
-          $(document).on("click", ".removeButton", function () {
-            let id = $(this).data("id");
-            let level = $(this).data("level");
-
-            if($(`#${level}SchoolName${id}`).val() != undefined) {
-              educationData[level].splice(id - 1, 1);
-              $(`#${level}Form${id}`).remove();
-            }
-          });
         });
       }
     });
   }
+
+  /**TODO : fix the bug - when removing the 1st item it deletes all */
+  $(document).on("click", ".removeButton", function () {
+    let id = $(this).data("id");
+    let level = $(this).data("level");
+    console.log("education remove button clicked", id, level);
+    if (
+      $(`#${level}SchoolName${id}`).val() != undefined ||
+      $(`#${level}SchoolName${id}`).val() != ""
+    ) {
+      educationData[level].splice(id - 1, 1);
+      $(`#${level}Form${id}`).remove();
+    } else {
+      $(`#${level}Form${id}`).remove();
+    }
+  });
 
   // Call populateEducationForms on page load
   populateEducationForms();

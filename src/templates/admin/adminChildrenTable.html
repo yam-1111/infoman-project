@@ -2,7 +2,7 @@
 {% block admincontent %}
 <div class="card shadow bg-secondary mb-2">
     <h4 class="card-title text-white p-2">
-        Personal information Table
+        Children Table
         <span class="badge bg-primary">{{count}}</span>
     </h4>
 
@@ -15,15 +15,15 @@
             <thead>
                 <tr>
                     <th>CSC ID No</th>
-                    <th>Full Name</th>
+                    <th>Children ID</th>
                     <th>Date of Birth</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                {% for person in persons %}
+                {% for person in children %}
                 <tr>
-                    <td>{{ person.cscIdNo }}</td>
+                    <td>{{ person.CSC_ID_No }}</td>
                     <td>{{ person.fullName }}</td>
                     <td>{{ person.dateOfBirth }}</td>
                     <td>
@@ -35,7 +35,7 @@
                             data-bs-target="#editModal{{ person.cscIdNo }}">
                             Edit
                         </button>
-                        <button type="button" class="deleteBtn btn btn-danger" data-id="{{person.cscIdNo}}">
+                        <button type="button" class="deleteBtn btn btn-danger" data-id="{{person.Children_ID}}">
                             Delete
                         </button>
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
@@ -170,9 +170,9 @@
 
         $('.deleteBtn').click(function () {
             var dataId = $(this).attr("data-id");
-            if (confirm("Are you sure you want to delete this person?")) {
+            if (confirm("Are you sure you want to delete this entity?")) {
                 $.ajax({
-                    url: "/admin/delete/personal_information",
+                    url: "/admin/delete/children",
                     type: "DELETE",
                     contentType: 'application/json',
                     data: JSON.stringify({
