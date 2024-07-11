@@ -38,7 +38,7 @@ CHILDREN_PARSER_DICT = {
     "CSC_ID_No": "CSC_ID_No",
     "Children_ID" : "Children_ID",
     "fullName": "Name_of_Children",
-    "birthDay": "Children_Date_Of_Birth"
+    "birthDay": "Children_Date_of_Birth"
 }
 
 EDUCATION_PARSER_DICT = {

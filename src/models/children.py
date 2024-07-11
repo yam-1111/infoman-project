@@ -26,12 +26,13 @@ class Children:
         Returns : None
         """
          # convert the value into sql variable naming
-        sql_dict = EntityParser(**self.__dict__).sqlParse()
+        sql_dict = EntityParser(**self.__dict__).sqlParse(TABLE_PARSER_DICT=CHILDREN_PARSER_DICT)
         columns = ', '.join(sql_dict.keys())
         placeholders = ', '.join(['%s'] * len(sql_dict))
-        sql = f"INSERT INTO personal_information ({columns}) VALUES ({placeholders})"
+        sql = f"INSERT INTO children ({columns}) VALUES ({placeholders})"
 
         # insert the values to the database, if there is an error raise an exception
+        print(f"SQL: {sql}\n\nValues: {list(sql_dict.values())}")
         try:
             cursor.execute(sql, list(sql_dict.values()))
             db.commit()
@@ -50,7 +51,7 @@ class Children:
         Returns : None
         """
         # Convert the value into SQL variable naming
-        sql_dict = EntityParser(**self.__dict__).sqlParse(TABLE_PARSER_DICT='children')
+        sql_dict = EntityParser(**self.__dict__).sqlParse(TABLE_PARSER_DICT=CHILDREN_PARSER_DICT)
 
         # Create the SET part of the SQL query, only include non-empty values
         set_clause = ', '.join([f"{key} = %s" for key, value in sql_dict.items() if value != ""])
@@ -119,9 +120,11 @@ class Children:
             fetched_rows = cursor.fetchall()
 
             # return a html json formatted value
+            print(f"\n\n\nFETCHED ROWS: {fetched_rows}  \n\n\n")
             parser = EntityParser()
             col_name = parser.get_column_names('children')
-            return [EntityParser().sqlTupleToJson(col_name, row, TABLE_PARSER_DICT=CHILDREN_PARSER_DICT) for row in fetched_rows]
+            json_rows =  [EntityParser().sqlTupleToJson(col_name, row, TABLE_PARSER_DICT=CHILDREN_PARSER_DICT) for row in fetched_rows]
+            return json_rows
 
         except Exception as e:
             print(str(e))

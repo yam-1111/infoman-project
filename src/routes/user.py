@@ -48,18 +48,21 @@ def submit():
             child_record = Children()
             try:
                 existing_child = child_record.fetchone(
-                    query='SELECT * FROM children WHERE id = %s', 
+                    query='SELECT * FROM children WHERE Children_ID = %s', 
                     query_args=(child.get('Children_ID'),)
                     )
+                print(f"-------\nchild id: {child.get('Children_ID')}\nExisting : {existing_child}\n\n-------")
             except Exception as e:
+                print(f"-------\n{str(e)}\n-------")
                 existing_child = None
                 
             if existing_child:
                 # Update existing child record
-                child_record(**child)
-                child_record.update(f"id = {child.get('id')}")
+                print(child)
+                Children(**child).update(f"Children_ID = {child.get('Children_ID')}")
             else:
                 # Insert a new child record
+                print(child)
                 child['CSC_ID_No'] = csc_id_no
                 new_child = Children(**child)
                 new_child.insert(CSC_ID_No=csc_id_no)

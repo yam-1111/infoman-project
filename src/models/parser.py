@@ -103,7 +103,7 @@ class EntityParser:
                     "Education_Start",
                     "Education_End",
                     "Year_Graduated",
-                    "Children_Date_Of_Birth",
+                    "Children_Date_of_Birth",
                 ]:
                     json_dict[json_to_sql[column]] = (
                         str(value) if value is not None else ""
