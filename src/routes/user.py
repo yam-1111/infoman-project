@@ -36,36 +36,40 @@ def submit():
         
         if existing_person:
             # Update the existing record
-            person.__init__(**data['formData'])
-            person.update(f"CSC_ID_No = {csc_id_no}")
+            personalInformation(**data.get('formData')).update(f"CSC_ID_No = {csc_id_no}")
         else:
             # Insert a new record
-            new_person = personalInformation(**data['formData'])
-            new_person.insert()
+            person(**data.get('formData'))
+            person.insert()
 
     # Insert each child in the database
     if 'childData' in data and data['childData']:
         for child in data['childData']:
             child_record = Children()
-            existing_child = child_record.fetchone(
-                query='SELECT * FROM children WHERE id = %s', 
-                query_args=(child.get('id'),)
-                )
-            
+            try:
+                existing_child = child_record.fetchone(
+                    query='SELECT * FROM children WHERE id = %s', 
+                    query_args=(child.get('Children_ID'),)
+                    )
+            except Exception as e:
+                existing_child = None
+                
             if existing_child:
                 # Update existing child record
-                child_record.__init__(**child)
+                child_record(**child)
                 child_record.update(f"id = {child.get('id')}")
             else:
                 # Insert a new child record
+                child['CSC_ID_No'] = csc_id_no
                 new_child = Children(**child)
-                new_child.insert()
+                new_child.insert(CSC_ID_No=csc_id_no)
 
     # Insert each education in the database
     if 'educationData' in data and data['educationData']:
         for educationLevel, educationValue in data['educationData'].items():
             for arr in educationValue:
                 print(f"+++++++\n{arr}\n+++++++")
+                arr['educationLevel'] = (arr.get('educationLevel')).replace('_', ' ')
                 education_record = Education()
                 try:
                     existing_education = education_record.fetchone(

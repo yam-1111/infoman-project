@@ -107,13 +107,19 @@ def logout():
 
 
 # retrieve the user's information
-@apis.get("/user/data")
-def get_user():
+@apis.get("/user/data", defaults={"CSC_ID_No": None})
+@apis.get("/user/data/<CSC_ID_No>")
+def get_user(CSC_ID_No):
+    if CSC_ID_No is None:
+        CSC_ID_No = session.get("id")
+    CSC_ID_No = CSC_ID_No
     if session.get("role") == "user":
-        user = personalInformation().fetchone(query_args=(session.get("id"),))
+        user = personalInformation().fetchone(query_args=(CSC_ID_No,))
+        children = Children().fetch(query="SELECT * FROM children WHERE CSC_ID_No=%s", query_args=(CSC_ID_No,))
+        print(children)
         education_records = Education().fetch(
             query="SELECT * FROM education WHERE CSC_ID_No=%s", 
-            query_args=(session.get("id"),)
+            query_args=(CSC_ID_No,)
         )
         
         # Remove CSC_ID_No from each record
@@ -130,10 +136,14 @@ def get_user():
         
         # Categorize each record based on its educationalLevel
         for record in education_records:
+            # determine if graduated or not
+            record['isGraduate'] = record['yearGraduated'] not in (None, "")
+            #filter the graduate studies to have have underscore
+            record['educationLevel'] = record['educationLevel'].replace(' ', '_')
             level = record.get("educationLevel")
             if level in education:
                 education[level].append(record)
-        return jsonify({"status": "success", "formData": user, "educationData": education}), 200
+        return jsonify({"status": "success", "formData": user, "educationData": education, "childData" : children}), 200
     return abort(418)
 
 

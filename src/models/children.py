@@ -1,6 +1,6 @@
 from ..models import db, cursor
 from ..models.parser import EntityParser
-
+from ..models.constants import CHILDREN_PARSER_DICT 
 
 class Children:
     """
@@ -8,13 +8,13 @@ class Children:
     
     Args:
         CSC_ID_No : int : the CSC_ID_No of the parent (optional : other than insert)
-        Name_Of_Children : str : the name of the children (optional : other than insert)
-        Children_Date_Of_Birth : str : the date of birth of the children (optional : other than insert)
+        fullName : str : the name of the children (optional : other than insert)
+        birthDay : str : the date of birth of the children (optional : other than insert)
     """
-    def __init__(self, CSC_ID_No=None, Name_Of_Children=None, Children_Date_Of_Birth=None):
-        self.CSC_ID_No = CSC_ID_No
-        self.Name_Of_Children = Name_Of_Children
-        self.Children_Date_Of_Birth = Children_Date_Of_Birth
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
 
     def insert(self, CSC_ID_No : int):
         """
@@ -25,13 +25,20 @@ class Children:
             
         Returns : None
         """
-        sql = (
-            "INSERT INTO children (CSC_ID_No, Name_of_Children, Children_Date_of_Birth) "
-            "VALUES (%s, %s, %s)"
-        )
-        values = (CSC_ID_No, self.Name_Of_Children, self.Children_Date_Of_Birth)
-        cursor.execute(sql, values)
-        db.commit()
+         # convert the value into sql variable naming
+        sql_dict = EntityParser(**self.__dict__).sqlParse()
+        columns = ', '.join(sql_dict.keys())
+        placeholders = ', '.join(['%s'] * len(sql_dict))
+        sql = f"INSERT INTO personal_information ({columns}) VALUES ({placeholders})"
+
+        # insert the values to the database, if there is an error raise an exception
+        try:
+            cursor.execute(sql, list(sql_dict.values()))
+            db.commit()
+        except:
+            db.rollback()
+             # send the error to calling function
+            raise
 
     def update(self, query_condition: str):
         """
@@ -43,7 +50,7 @@ class Children:
         Returns : None
         """
         # Convert the value into SQL variable naming
-        sql_dict = EntityParser(**self.__dict__).sqlParse()
+        sql_dict = EntityParser(**self.__dict__).sqlParse(TABLE_PARSER_DICT='children')
 
         # Create the SET part of the SQL query, only include non-empty values
         set_clause = ', '.join([f"{key} = %s" for key, value in sql_dict.items() if value != ""])
@@ -73,8 +80,8 @@ class Children:
 
         Usage:
             Children().fetchone(
-                query="SELECT * FROM children WHERE Name_of_Children = %s",
-                query_args= <name_of_children>
+                query="SELECT * FROM children WHERE fullName = %s",
+                query_args= <fullName>
             )
         """
         try:
@@ -85,7 +92,7 @@ class Children:
             # return a html json formatted value
             parser = EntityParser()
             col_name = parser.get_column_names('children')
-            return EntityParser().sqlTupleToJson(col_name, fetched_row)
+            return EntityParser().sqlTupleToJson(col_name, fetched_row, TABLE_PARSER_DICT=CHILDREN_PARSER_DICT)
         except Exception as e:
             print(str(e))
             return {}
@@ -114,7 +121,7 @@ class Children:
             # return a html json formatted value
             parser = EntityParser()
             col_name = parser.get_column_names('children')
-            return [EntityParser().sqlTupleToJson(col_name, row) for row in fetched_rows]
+            return [EntityParser().sqlTupleToJson(col_name, row, TABLE_PARSER_DICT=CHILDREN_PARSER_DICT) for row in fetched_rows]
 
         except Exception as e:
             print(str(e))

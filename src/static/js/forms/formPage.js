@@ -24,7 +24,7 @@ $(document).ready(function () {
       console.log("data loaded");
       Object.assign(formData || {}, data.formData);
       Object.assign(educationData || {}, data.educationData);
-      Object.assign(childData || {}, data.childrenData);
+      Object.assign(childData || {}, data.childData);
     },
     error: function (error) {
       console.log("error loading data");
@@ -107,9 +107,10 @@ $(document).ready(function () {
         let isGraduate = $(`#${_educationDegree[i]}Graduate${x}`).is(
           ":checked"
         );
-        let highestAttainment = isGraduate
-          ? ""
-          : $(`#highestAttainmentInput${_educationDegree[i]}${x}`).val();
+        let yearGraduated = isGraduate ? gradsEnd : "";
+        let highestAttainment = !isGraduate
+          ? $(`#highestAttainmentInput${_educationDegree[i]}${x}`).val()
+          : "";
         let AchievementInput = $(
           `#${_educationDegree[i]}AchievementInput${x}`
         ).val();
@@ -120,6 +121,7 @@ $(document).ready(function () {
           gradsStart: gradsStart,
           gradsEnd: gradsEnd,
           isGraduate: isGraduate,
+          yearGraduated: yearGraduated,
           highestAttainment: highestAttainment,
           AchievementInput: AchievementInput,
         };

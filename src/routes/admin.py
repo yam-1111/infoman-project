@@ -16,6 +16,7 @@ from ..models.person import personalInformation
 from ..models.utils import admin_required
 from ..models.children import Children
 from ..models.education import Education
+from ..models.parser import EntityParser
 
 admin = Blueprint(
     "admin", __name__, template_folder="../templates", static_folder="../static"
@@ -58,6 +59,7 @@ def table_personal_information():
 def table_children():
     children = Children().fetch()
     count = Children().count()
+    print(children)
     return render_template(
         "admin/adminChildrenTable.html", children=children, count=count
     )
@@ -66,10 +68,10 @@ def table_children():
 @admin_required
 def table_education():
     education = Education().fetch()
-    count = Education().count()
-    print(education)
+    cols_name = EntityParser().get_column_names('education')
     return render_template(
-        "admin/adminEducationTable.html", educ=education, count=count
+        "admin/adminEducationTable.html", 
+        educ=education, cols_name=cols_name, count=Education().count()
     )
 
 
@@ -89,14 +91,14 @@ def change_password():
 @admin.delete("/delete/<table_name>/")
 @admin_required
 def delete_user(table_name):
-    id = request.get_json().get('cscIdNo')
+    id = request.get_json().get('deleteIDNo')
     try:
         if table_name == 'personal_information':
-            personalInformation().delete(f'CSC_ID_No={id}')
+            personalInformation().delete(query_condition=f'CSC_ID_No={id}')
         elif table_name == 'children':
-            pass
+            Children().delete(query_condition=f'Children_ID={id}')
         elif table_name == 'education':
-            pass
+            Education().delete(query_condition=f'Education_ID={id}')
     except Exception as e:
         db.rollback()
         return jsonify({"error": str(e)}), 500

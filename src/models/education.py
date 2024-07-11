@@ -28,13 +28,17 @@ class Education:
         
         # convert the value into sql variable naming
         sql_dict = EntityParser(**self.__dict__).sqlParse(TABLE_PARSER_DICT=EDUCATION_PARSER_DICT)
-        columns = ', '.join(sql_dict.keys())
-        placeholders = ', '.join(['%s'] * len(sql_dict))
+        filtered_sql_dict = {k: v for k, v in sql_dict.items() if v not in (None, "")}
+        if not filtered_sql_dict:
+            raise ValueError("No valid data to insert.")
+        
+        columns = ', '.join(filtered_sql_dict.keys())
+        placeholders = ', '.join(['%s'] * len(filtered_sql_dict))
         sql = f"INSERT INTO education ({columns}) VALUES ({placeholders})"
-
+        print(f"EDUCATION INSERT SQL: {sql}\n\nValues: {list(filtered_sql_dict.values())}")
         # insert the values to the database, if there is an error raise an exception
         try:
-            cursor.execute(sql, list(sql_dict.values()))
+            cursor.execute(sql, list(filtered_sql_dict.values()))
             db.commit()
         except:
             db.rollback()

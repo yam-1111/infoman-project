@@ -35,9 +35,10 @@ PERSONALINFO_PARSER_DICT = {
 }
 
 CHILDREN_PARSER_DICT = {
-    "cscIdNo": "CSC_ID_No",
-    "childrenName": "Children_Name",
-    "childrenDateOfBirth": "Children_Date_Of_Birth"
+    "CSC_ID_No": "CSC_ID_No",
+    "Children_ID" : "Children_ID",
+    "fullName": "Name_of_Children",
+    "birthDay": "Children_Date_Of_Birth"
 }
 
 EDUCATION_PARSER_DICT = {
@@ -49,6 +50,7 @@ EDUCATION_PARSER_DICT = {
     "gradsEnd" : "Education_End",
     "gradsStart" : "Education_Start",
     "degree": "Education_Degree",
+    "highestAttainment" : "Highest_Level",
     "yearGraduated": "Year_Graduated",
-    "AchievemmentInput" : "Scholarship_Acad_Honors",
+    "AchievementInput" : "Scholarship_Acad_Honors",
 }
