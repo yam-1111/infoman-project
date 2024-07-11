@@ -3,8 +3,9 @@ from os import getenv, path, listdir
 
 
 def create_db():
-     schema_folder = '/home/vee/personal/infoman-project/src/models/schemas'
-     for filename in listdir(schema_folder):
+    # Use os.path.join for compatibility across different OS
+    schema_folder = path.join(path.dirname(__file__), 'schemas')
+    for filename in listdir(schema_folder):
         if filename.endswith('.sql'):
             sql_file_path = path.join(schema_folder, filename)
             with open(sql_file_path, 'r') as file:
@@ -17,15 +18,13 @@ def create_db():
                     command = command.strip()
                     if command:  # Execute non-empty commands
                         cursor.execute(command)
-                        
-
 
 
 db = mysql.connect(
-    host = getenv('DB_HOST'),
-    user = getenv('DB_USERNAME'),
-    password = getenv('DB_PASSWORD'),
-    database = getenv('DB_NAME')
+    host=getenv('DB_HOST'),
+    user=getenv('DB_USERNAME'),
+    password=getenv('DB_PASSWORD'),
+    database=getenv('DB_NAME')
 )
 
 cursor = db.cursor(buffered=True)
