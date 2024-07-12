@@ -1,11 +1,18 @@
 {% extends "/admin/adminBase.html" %}
 {% block admincontent %}
 <div class="card shadow bg-secondary mb-2">
-    <h4 class="card-title text-white p-2">
-        Children Table
-        <span class="badge bg-primary">{{count}}</span>
-    </h4>
+    <div class="card-title text-white p-2 d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-2">
+            <h4>Children Table</h4>
+            <span class="badge bg-primary">
+                <h5>{{count}}</h5><span>
+        </div>
 
+        <a href="javascript:void(0)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addModal">
+            <i class="fas fa-plus"></i>
+            Add children entry
+        </a>
+    </div>
 </div>
 
 <div class="card shadow">
@@ -16,6 +23,7 @@
                 <tr>
                     <th>CSC ID No</th>
                     <th>Children ID</th>
+                    <th>Name</th>
                     <th>Date of Birth</th>
                     <th>Action</th>
                 </tr>
@@ -23,24 +31,17 @@
             <tbody>
                 {% for person in children %}
                 <tr>
-                    <td>{{ person.CSC_ID_No }}</td>
-                    <td>{{ person.fullName }}</td>
-                    <td>{{ person.dateOfBirth }}</td>
+                    <td id="td-cscID{{person.Children_ID}}">{{ person.CSC_ID_No }}</td>
+                    <td id="td-Children_ID{{person.Children_ID}}">{{person.Children_ID}}</td>
+                    <td id="td-fullName{{person.Children_ID}}">{{ person.fullName }}</td>
+                    <td id="td-birthDay{{person.Children_ID}}">{{ person.birthDay}}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#viewModal{{ person.cscIdNo }}">
-                            View all detail
-                        </button>
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#editModal{{ person.cscIdNo }}">
+                        <button type="button" class="editBtn btn btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#editModal" data-id="{{person.Children_ID}}">
                             Edit
                         </button>
                         <button type="button" class="deleteBtn btn btn-danger" data-id="{{person.Children_ID}}">
                             Delete
-                        </button>
-                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                            data-bs-target="#changePasswordModal{{ person.cscIdNo }}">
-                            <i class="fa fa-key" aria-hidden="true"></i> Change password
                         </button>
                     </td>
                 </tr>
@@ -49,86 +50,68 @@
         </table>
         <!---->
 
-        <!--view modal-->
-        {% for person in persons %}
-        <div class="modal fade" id="viewModal{{ person.cscIdNo }}" tabindex="-1"
-            aria-labelledby="viewModalLabel{{ person.cscIdNo }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!--edit modal-->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="viewModalLabel{{ person.cscIdNo }}">View all person Details</h5>
+                        <h5 class="modal-title" id="editModalLabel">Edit Child Details</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p><strong>CSC ID No:</strong> {{ person.cscIdNo }}</p>
-                        <p><strong>Full Name:</strong> {{ person.fullName }}</p>
-                        <p><strong>Date of Birth:</strong> {{ person.dateOfBirth }}</p>
-                        <p><strong>Place of Birth:</strong> {{ person.placeOfBirth }}</p>
-                        <p><strong>Sex:</strong> {{ person.sex }}</p>
-                        <p><strong>Civil Status:</strong> {{ person.civilStatus }}</p>
-                        <p><strong>Height (m):</strong> {{ person.height }}</p>
-                        <p><strong>Weight (kg):</strong> {{ person.weight }}</p>
-                        <p><strong>Blood Type:</strong> {{ person.bloodType }}</p>
-                        <p><strong>GSIS ID No:</strong> {{ person.gsis }}</p>
-                        <p><strong>PAGIBIG ID No:</strong> {{ person.pagibig }}</p>
-                        <p><strong>PHILHEALTH No:</strong> {{ person.philhealth }}</p>
-                        <p><strong>SSS No:</strong> {{ person.sss }}</p>
-                        <p><strong>TIN No:</strong> {{ person.tin }}</p>
-                        <p><strong>Agency Employee No:</strong> {{ person.agencyemployee }}</p>
-                        <p><strong>Citizenship:</strong> {{ person.citizenship }}</p>
-                        <p><strong>Residential Address:</strong> {{ person.residential_address }}</p>
-                        <p><strong>Permanent Address:</strong> {{ person.permanent_address }}</p>
-                        <p><strong>Telephone No:</strong> {{ person.telephone_no }}</p>
-                        <p><strong>Mobile No:</strong> {{ person.mobile_no }}</p>
-                        <p><strong>Email Address:</strong> {{ person.email_address }}</p>
-                        <p><strong>Father Full Name:</strong> {{ person.fatherFullName }}</p>
-                        <p><strong>Mother Full Name:</strong> {{ person.motherFullName }}</p>
-                        <p><strong>Spouse Full Name:</strong> {{ person.spouseFullName }}</p>
-                        <p><strong>Spouse Occupation:</strong> {{ person.spouseOccupation }}</p>
-                        <p><strong>Spouse Business Address:</strong> {{ person.spouseBusinessAddress }}</p>
-                        <p><strong>Spouse Telephone Number:</strong> {{ person.spouseBusinessNumber }}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--change password-->
-        <div class="modal fade" id="changePasswordModal{{ person.cscIdNo }}" tabindex="-1"
-            aria-labelledby="changePasswordModalLabel{{ person.cscIdNo }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="changePasswordModalLabel{{ person.cscIdNo }}">Change Password for {{
-                            person.fullName }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
+                        <form id="editForm">
                             <div class="mb-3">
-                                <label for="newPassword{{ person.cscIdNo }}" class="form-label">New Password</label>
-                                <input type="password" class="form-control" id="newPassword{{ person.cscIdNo }}"
-                                    name="new_password" required>
+                                <label for="cscId" class="form-label">Parent: </label>
+                                <select class="form-select" id="cscId" name="cscId">
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label for="confirmPassword{{ person.cscIdNo }}" class="form-label">Confirm
-                                    Password</label>
-                                <input type="password" class="form-control" id="confirmPassword{{ person.cscIdNo }}"
-                                    name="confirm_password" required>
+                                <label for="fullName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="fullName" name="fullName">
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class=" changePasswordBtn btn btn-warning"
-                                    data-id="{{ person.cscIdNo }}">Change
-                                    Password</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <div class="mb-3">
+                                <label for="birthDay" class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" id="birthDay" name="birthDay">
                             </div>
+                            <button type="button" id="saveChangesBtn" class="btn btn-primary">Save changes</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        {%endfor%}
+        <!---->
+        <!--Add modal-->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Add Child Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addForm">
+                            <div class="mb-3">
+                                <label for="cscId" class="form-label">Parent: </label>
+                                <select class="form-select" id="addcscId" name="addcscId">
+                                    {%for p in parent%}
+                                    <option value="{{p.cscIdNo}}">{{p.fullName}}</option>
+                                    {%endfor%}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="addfullName" name="addfullName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="birthDay" class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" id="addbirthDay" name="birthDay">
+                            </div>
+                            <button type="button" id="addSaveChangesBtn" class="btn btn-primary">Save changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!---->
     </div>
 </div>
@@ -141,6 +124,7 @@
         }
     </style> -->
 
+<script src="{{url_for('static', filename='js/admin/childTable.js')}}"></script>
 <script>
     $(document).ready(() => {
         $(".changePasswordBtn").click(function () {
@@ -183,6 +167,14 @@
                         location.reload();
                     }
                 });
+            }
+        });
+
+        $("#addGraduate").change(function () {
+            if (this.checked) {
+                $("#highestAttainmentContainer").hide();
+            } else {
+                $("#highestAttainmentContainer").show();
             }
         });
     })

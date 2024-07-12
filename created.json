@@ -1,0 +1,134 @@
+[
+  {
+    "childData": [],
+    "educationData": {
+      "college": [],
+      "elementary": [
+        {
+          "AchievementInput": "",
+          "CSC_ID_No": 6,
+          "Education_ID": 21,
+          "degree": "Elementary",
+          "educationLevel": "elementary",
+          "gradsEnd": "2016-01-01",
+          "gradsStart": "2010-01-01",
+          "highestAttainment": "High Honors",
+          "isGraduate": true,
+          "schoolName": "Royal Christian Academy",
+          "yearGraduated": "2016-01-01"
+        }
+      ],
+      "graduate_studies": [],
+      "secondary": [
+        {
+          "AchievementInput": "Honors",
+          "CSC_ID_No": 6,
+          "Education_ID": 22,
+          "degree": "Highschool",
+          "educationLevel": "secondary",
+          "gradsEnd": "2020-01-02",
+          "gradsStart": "2016-01-02",
+          "highestAttainment": "",
+          "isGraduate": true,
+          "schoolName": "Burgos High School",
+          "yearGraduated": "2020-01-02"
+        }
+      ]
+    },
+    "formData": {
+      "agencyemployee": "1221-Acg",
+      "bloodType": "AB+",
+      "citizenship": "Fil",
+      "civilStatus": "S",
+      "cscIdNo": 6,
+      "dateOfBirth": "2004-01-01",
+      "email_address": "kavillaluna@gmail.com",
+      "fatherFullName": "Villaluna, John",
+      "fullName": "Villaluna, Johnmar Carlos",
+      "gsis": "9203040943",
+      "height": "1.80",
+      "mobile_no": "987456321",
+      "motherFullName": "Villaluna, Carla",
+      "pagibig": "3209421",
+      "permanent_address": "11-A Ambrocia St., T. S. Cruz Novaliches,Quezon City",
+      "philhealth": "90303093",
+      "placeOfBirth": "Quezon City",
+      "residential_address": "11-A Ambrocia St., T. S. Cruz Novaliches,Quezon City",
+      "sex": "M",
+      "spouseBusinessAddress": "",
+      "spouseBusinessNumber": "",
+      "spouseFullName": "",
+      "spouseOccupation": "",
+      "sss": "932020421",
+      "telephone_no": "7412443",
+      "tin": "230231",
+      "weight": "80.0"
+    }
+  },
+  {
+    "childData": [],
+    "educationData": {
+      "college": [],
+      "elementary": [
+        {
+          "AchievementInput": "",
+          "CSC_ID_No": 7,
+          "Education_ID": 21,
+          "degree": "Elementary",
+          "educationLevel": "elementary",
+          "gradsEnd": "2016-01-01",
+          "gradsStart": "2010-01-01",
+          "highestAttainment": "High Honors",
+          "isGraduate": true,
+          "schoolName": "Royal Christian Academy",
+          "yearGraduated": "2016-01-01"
+        }
+      ],
+      "graduate_studies": [],
+      "secondary": [
+        {
+          "AchievementInput": "Honors",
+          "CSC_ID_No": 7,
+          "Education_ID": 22,
+          "degree": "Highschool",
+          "educationLevel": "secondary",
+          "gradsEnd": "2020-01-02",
+          "gradsStart": "2016-01-02",
+          "highestAttainment": "",
+          "isGraduate": true,
+          "schoolName": "Burgos High School",
+          "yearGraduated": "2020-01-02"
+        }
+      ]
+    },
+    "formData": {
+      "agencyemployee": "1991-Acg",
+      "bloodType": "AB+",
+      "citizenship": "Fil",
+      "civilStatus": "S",
+      "cscIdNo": 7,
+      "dateOfBirth": "2019-10-20",
+      "email_address": "jd.santos@gmail.com",
+      "fatherFullName": "Santos, John Dustin III",
+      "fullName": "Santos, Chelsea Garcia",
+      "gsis": "9203040949",
+      "height": 1.5,
+      "mobile_no": "9927397829",
+      "motherFullName": "Santos, Joan Garcia",
+      "pagibig": "3209429",
+      "permanent_address": "102 , Multinational Ave, Paranaque City",
+      "philhealth": "90303099",
+      "placeOfBirth": "Manila",
+      "residential_address": "102 , Multinational Ave, Paranaque City",
+      "sex": "F",
+      "spouseBusinessAddress": "",
+      "spouseBusinessNumber": "",
+      "spouseFullName": "",
+      "spouseOccupation": "",
+      "sss": "932020429",
+      "telephone_no": "09927397829",
+      "tin": "230239",
+      "weight": 50.0
+    }
+  }
+]

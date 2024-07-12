@@ -1,0 +1,315 @@
+{% extends "/admin/adminBase.html" %}
+{% block admincontent %}
+
+<div class="accordion" id="accordionExample">
+    <!-- Easy Accordion -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingEasy">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEasy"
+                aria-expanded="true" aria-controls="collapseEasy">
+                <strong>Easy</strong>
+            </button>
+        </h2>
+        <div id="collapseEasy" class="accordion-collapse collapse show" aria-labelledby="headingEasy"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <!-- Easy Questions -->
+                <div class="accordion" id="accordionEasy">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEasy1">
+                            <div class="accordion-button"  type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEasy1" aria-expanded="true" aria-controls="collapseEasy1">
+                                1. Find all female applicants and show their full names.
+                            </div>
+   
+                        </h2>
+
+                        <div id="collapseEasy1" class="accordion-collapse collapse show" aria-labelledby="headingEasy1"
+                            data-bs-parent="#accordionEasy">
+                            <div class="accordion-body">
+                                <pre id="queryResult1">
+                                    SELECT Full_Name AS "Female Applicants"
+                                    FROM personal_information
+                                    WHERE Sex = 'F';
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult1')">Play</button>
+                                <div id="tableResult1"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEasy2">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEasy2" aria-expanded="true" aria-controls="collapseEasy2">
+                                2. Find all applicants who are married, along with their spouse’s name.
+                            </button>
+                        </h2>
+                        <div id="collapseEasy2" class="accordion-collapse collapse show" aria-labelledby="headingEasy2"
+                            data-bs-parent="#accordionEasy">
+                            <div class="accordion-body">
+                                <pre id="queryResult2">
+                                    SELECT Full_Name AS "Married Applicants", Spouse_Full_Name AS "Applicant’s Spouse"
+                                    FROM personal_information
+                                    WHERE Civil_Status = 'M';
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult2')">Play</button>
+                                <div id="tableResult2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEasy3">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseEasy3" aria-expanded="true" aria-controls="collapseEasy3">
+                                3. Find all applicants who are millennials (born between 1981 and 1996) Sort by age,
+                                oldest first.
+                            </button>
+                        </h2>
+                        <div id="collapseEasy3" class="accordion-collapse collapse show" aria-labelledby="headingEasy3"
+                            data-bs-parent="#accordionEasy">
+                            <div class="accordion-body">
+                                <pre id="queryResult3">
+                                    SELECT Full_Name AS "Applicants"
+                                    FROM personal_information
+                                    WHERE YEAR(Date_Of_Birth) BETWEEN 1981 AND 1996
+                                    ORDER BY Date_Of_Birth DESC;
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult3')">Play</button>
+                                <div id="tableResult3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medium Accordion -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingMedium">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseMedium" aria-expanded="false" aria-controls="collapseMedium">
+                <strong>Medium</strong>
+            </button>
+        </h2>
+        <div id="collapseMedium" class="accordion-collapse collapse" aria-labelledby="headingMedium"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <!-- Medium Questions -->
+                <div class="accordion" id="accordionMedium">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingMedium1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseMedium1" aria-expanded="true" aria-controls="collapseMedium1">
+                                1. Find the average weight for male and female applicants.
+                            </button>
+                        </h2>
+                        <div id="collapseMedium1" class="accordion-collapse collapse show"
+                            aria-labelledby="headingMedium1" data-bs-parent="#accordionMedium">
+                            <div class="accordion-body">
+                                <pre id="queryResult4">
+                                    SELECT Sex, AVG(Weight_kg) AS "Average Weight"
+                                    FROM personal_information
+                                    GROUP BY Sex;
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult4')">Play</button>
+                                <div id="tableResult4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingMedium2">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseMedium2" aria-expanded="true" aria-controls="collapseMedium2">
+                                2. Find the number of applicants who are married.
+                            </button>
+                        </h2>
+                        <div id="collapseMedium2" class="accordion-collapse collapse show"
+                            aria-labelledby="headingMedium2" data-bs-parent="#accordionMedium">
+                            <div class="accordion-body">
+                                <pre id="queryResult5">
+                                    SELECT COUNT(*) AS "Number of Married Applicants"
+                                    FROM personal_information
+                                    WHERE Civil_Status = 'M';
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult5')">Play</button>
+                                <div id="tableResult5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingMedium3">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseMedium3" aria-expanded="true" aria-controls="collapseMedium3">
+                                3. Find the average height of applicants per blood type.
+                            </button>
+                        </h2>
+                        <div id="collapseMedium3" class="accordion-collapse collapse show"
+                            aria-labelledby="headingMedium3" data-bs-parent="#accordionMedium">
+                            <div class="accordion-body">
+                                <pre id="queryResult6">
+                                    SELECT Blood_Type AS "Blood Type", AVG(Height_M) AS "Average Height"
+                                    FROM personal_information
+                                    GROUP BY Blood_Type;
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult6')">Play</button>
+                                <div id="tableResult6"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingMedium4">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseMedium4" aria-expanded="true" aria-controls="collapseMedium4">
+                                4. Find the number of applicants who finished College.
+                            </button>
+                        </h2>
+                        <div id="collapseMedium4" class="accordion-collapse collapse show"
+                            aria-labelledby="headingMedium4" data-bs-parent="#accordionMedium">
+                            <div class="accordion-body">
+                                <pre id="queryResult7">
+                                    SELECT COUNT(*) AS "Those who finished College"
+                                    FROM education
+                                    WHERE Education_Level = 'College';
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult7')">Play</button>
+                                <div id="tableResult7"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hard Accordion -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingHard">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseHard" aria-expanded="false" aria-controls="collapseHard">
+                <strong>Hard</strong>
+            </button>
+        </h2>
+        <div id="collapseHard" class="accordion-collapse collapse" aria-labelledby="headingHard"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <!-- Hard Questions -->
+                <div class="accordion" id="accordionHard">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingHard1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseHard1" aria-expanded="true" aria-controls="collapseHard1">
+                                1. Find the number of applicants who have parents that are registered in the system.
+                            </button>
+                        </h2>
+                        <div id="collapseHard1" class="accordion-collapse collapse show" aria-labelledby="headingHard1"
+                            data-bs-parent="#accordionHard">
+                            <div class="accordion-body">
+                                <pre id="queryResult8">
+                                    SELECT COUNT(*) AS "Number of Applicants with Registered Parents"
+                                    FROM personal_information AS P
+                                    JOIN children AS C ON P.Full_Name = C.Name_of_Children;
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult8')">Play</button>
+                                <div id="tableResult8"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingHard2">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseHard2" aria-expanded="true" aria-controls="collapseHard2">
+                                2. Display the names of applicants who are Filipinos and have finished their graduate
+                                studies. Find the number of their children.
+                            </button>
+                        </h2>
+                        <div id="collapseHard2" class="accordion-collapse collapse show" aria-labelledby="headingHard2"
+                            data-bs-parent="#accordionHard">
+                            <div class="accordion-body">
+                                <pre id="queryResult9">
+                                    SELECT P.Full_Name AS "Name of Applicant", COUNT(C.Children_ID) AS "Number of Children"
+                                    FROM personal_information AS P
+                                    JOIN education AS E ON P.CSC_ID_No = E.CSC_ID_No
+                                    JOIN children AS C ON P.CSC_ID_No = C.CSC_ID_No
+                                    WHERE P.Citizenship = 'Fil' AND E.Education_Level = 'Graduate Studies'
+                                    GROUP BY P.Full_Name;
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult9')">Play</button>
+                                <div id="tableResult9"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingHard3">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseHard3" aria-expanded="true" aria-controls="collapseHard3">
+                                3. Find all applicants who have finished college and have 2 or more children.
+                            </button>
+                        </h2>
+                        <div id="collapseHard3" class="accordion-collapse collapse show" aria-labelledby="headingHard3"
+                            data-bs-parent="#accordionHard">
+                            <div class="accordion-body">
+                                <pre id="queryResult10">
+                                    SELECT P.Full_Name, COUNT(C.Children_ID) AS "Number of Children"
+                                    FROM personal_information AS P
+                                    JOIN education AS E ON P.CSC_ID_No = E.CSC_ID_No
+                                    JOIN children AS C ON P.CSC_ID_No = C.CSC_ID_No
+                                    WHERE E.Education_Level = 'College'
+                                    GROUP BY P.Full_Name
+                                    HAVING COUNT(C.Children_ID) >= 2;
+                                </pre>
+                                <button class="" onclick="executeQuery('queryResult10')">Play</button>
+                                <div id="tableResult10"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function executeQuery(preId) {
+        const sqlQuery = $(`#${preId}`).text().trim().replace(/\n|\t/g, ' ');
+
+        $.ajax({
+            url: '/admin/console',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                queryId: preId,
+                sqlQuery: sqlQuery
+            }),
+            success: function(data) {
+                console.log(preId, data.result)
+                if (Array.isArray(data.result)) {
+                    const tableHtml = `
+                        <table class="table">
+                            <thead>
+                                <tr>${Object.keys(data.result[0]).map(key => `<th>${key}</th>`).join('')}</tr>
+                            </thead>
+                            <tbody>
+                                ${data.result.map(row => `<tr>${Object.values(row).map(val => `<td>${val}</td>`).join('')}</tr>`).join('')}
+                            </tbody>
+                        </table>`;
+                    if(preId === "queryResult10"){
+                        $(`#tableResult10`).html(tableHtml);
+                    }
+                    $(`#tableResult${preId.charAt(preId.length -1)}`).html(tableHtml);
+                    
+                } else {
+                    $(`#${preId}`).text(data.result);
+                }
+            },
+            error: function(error) {
+                $('#errorModalBody').text(`Error: ${error.responseJSON.error}`);
+                $('#errorModal').modal('show');
+            }
+        });
+    }
+</script>
+
+
+{% endblock %}

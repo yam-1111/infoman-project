@@ -1,0 +1,272 @@
+[
+  {
+    "childData": [],
+    "educationData": {
+      "college": [],
+      "elementary": [
+        {
+          "AchievementInput": "",
+          "CSC_ID_No": 2,
+          "Education_ID": 12,
+          "degree": "Elementary",
+          "educationLevel": "elementary",
+          "gradsEnd": "2007-01-01",
+          "gradsStart": "2001-01-01",
+          "highestAttainment": "",
+          "isGraduate": true,
+          "schoolName": "Cabadingan Elem",
+          "yearGraduated": "2007-01-01"
+        }
+      ],
+      "graduate_studies": [],
+      "secondary": [
+        {
+          "AchievementInput": "",
+          "CSC_ID_No": 2,
+          "Education_ID": 13,
+          "degree": "Highschool",
+          "educationLevel": "secondary",
+          "gradsEnd": "2011-01-02",
+          "gradsStart": "2007-01-02",
+          "highestAttainment": "",
+          "isGraduate": true,
+          "schoolName": "Kabankalan Highschool",
+          "yearGraduated": "2011-01-02"
+        }
+      ]
+    },
+    "formData": {
+      "agencyemployee": "",
+      "bloodType": "",
+      "citizenship": "",
+      "civilStatus": "",
+      "cscIdNo": 2,
+      "dateOfBirth": "1980-01-01",
+      "email_address": "jcvillaluna@gmail.com",
+      "fatherFullName": "",
+      "fullName": "Villaluna, Johnmar Carlos",
+      "gsis": "",
+      "height": "",
+      "mobile_no": "",
+      "motherFullName": "",
+      "pagibig": "",
+      "permanent_address": "",
+      "philhealth": "",
+      "placeOfBirth": "",
+      "residential_address": "",
+      "sex": "",
+      "spouseBusinessAddress": "",
+      "spouseBusinessNumber": "",
+      "spouseFullName": "",
+      "spouseOccupation": "",
+      "sss": "",
+      "telephone_no": "",
+      "tin": "",
+      "weight": ""
+    }
+  },
+  {
+    "childData": [],
+    "educationData": {
+      "college": [],
+      "elementary": [],
+      "graduate_studies": [],
+      "secondary": []
+    },
+    "formData": {
+      "agencyemployee": "",
+      "bloodType": "",
+      "citizenship": "",
+      "civilStatus": "",
+      "cscIdNo": 3,
+      "dateOfBirth": "1945-01-01",
+      "email_address": "bcarlos@gmail.com",
+      "fatherFullName": "",
+      "fullName": "Benedicto, Carlos III",
+      "gsis": "",
+      "height": "",
+      "mobile_no": "",
+      "motherFullName": "",
+      "pagibig": "",
+      "permanent_address": "",
+      "philhealth": "",
+      "placeOfBirth": "",
+      "residential_address": "",
+      "sex": "",
+      "spouseBusinessAddress": "",
+      "spouseBusinessNumber": "",
+      "spouseFullName": "",
+      "spouseOccupation": "",
+      "sss": "",
+      "telephone_no": "",
+      "tin": "",
+      "weight": ""
+    }
+  },
+  {
+    "childData": [],
+    "educationData": {
+      "college": [
+        {
+          "AchievementInput": "",
+          "CSC_ID_No": 4,
+          "Education_ID": 17,
+          "degree": "Sdbbds",
+          "educationLevel": "college",
+          "gradsEnd": "2026-10-20",
+          "gradsStart": "2022-10-20",
+          "highestAttainment": "",
+          "isGraduate": false,
+          "schoolName": "Dkskjnsd",
+          "yearGraduated": ""
+        }
+      ],
+      "elementary": [
+        {
+          "AchievementInput": "",
+          "CSC_ID_No": 4,
+          "Education_ID": 14,
+          "degree": "Elementary",
+          "educationLevel": "elementary",
+          "gradsEnd": "2016-01-10",
+          "gradsStart": "2010-01-10",
+          "highestAttainment": "",
+          "isGraduate": true,
+          "schoolName": "Cabading Elementary School",
+          "yearGraduated": "2016-01-10"
+        }
+      ],
+      "graduate_studies": [],
+      "secondary": [
+        {
+          "AchievementInput": "",
+          "CSC_ID_No": 4,
+          "Education_ID": 15,
+          "degree": "Junior Highschool",
+          "educationLevel": "secondary",
+          "gradsEnd": "2020-03-10",
+          "gradsStart": "2016-06-20",
+          "highestAttainment": "",
+          "isGraduate": true,
+          "schoolName": "San Jose National Highschool",
+          "yearGraduated": "2020-03-10"
+        },
+        {
+          "AchievementInput": "",
+          "CSC_ID_No": 4,
+          "Education_ID": 16,
+          "degree": "Senior Highschool",
+          "educationLevel": "secondary",
+          "gradsEnd": "2022-05-15",
+          "gradsStart": "2020-06-10",
+          "highestAttainment": "",
+          "isGraduate": true,
+          "schoolName": "San Jose National Highschool",
+          "yearGraduated": "2022-05-15"
+        }
+      ]
+    },
+    "formData": {
+      "agencyemployee": "",
+      "bloodType": "A+",
+      "citizenship": "Fil",
+      "civilStatus": "S",
+      "cscIdNo": 4,
+      "dateOfBirth": "2003-09-11",
+      "email_address": "mfrancisco@yahoo.com",
+      "fatherFullName": "Francisco, Lino Santos",
+      "fullName": "Francisco, Meinard Pangilinan ",
+      "gsis": "9203040942",
+      "height": 1.78,
+      "mobile_no": "9927397820",
+      "motherFullName": "Pangilinan, Maria Juan",
+      "pagibig": "3209420",
+      "permanent_address": "102 , Multinational Ave, Paranaque City",
+      "philhealth": "90303092",
+      "placeOfBirth": "Quezon City",
+      "residential_address": "102 , Multinational Ave, Paranaque City",
+      "sex": "M",
+      "spouseBusinessAddress": "",
+      "spouseBusinessNumber": "",
+      "spouseFullName": "",
+      "spouseOccupation": "",
+      "sss": "932020420",
+      "telephone_no": "09927397820",
+      "tin": "230230",
+      "weight": 75.0
+    }
+  },
+  {
+    "childData": [
+      {
+        "CSC_ID_No": 5,
+        "Children_ID": 1,
+        "birthDay": "2010-01-01",
+        "fullName": "Santos, John Kirt Garcia"
+      },
+      {
+        "CSC_ID_No": 5,
+        "Children_ID": 2,
+        "birthDay": "2016-01-01",
+        "fullName": "Santos, Christine Garcia"
+      },
+      {
+        "CSC_ID_No": 5,
+        "Children_ID": 11,
+        "birthDay": "2019-10-20",
+        "fullName": "Santos, Chelsea Garcia"
+      }
+    ],
+    "educationData": {
+      "college": [
+        {
+          "AchievementInput": "Cum Laude",
+          "CSC_ID_No": 5,
+          "Education_ID": 23,
+          "degree": "Bs Information Technolofy",
+          "educationLevel": "college",
+          "gradsEnd": "2015-08-15",
+          "gradsStart": "2011-08-10",
+          "highestAttainment": "",
+          "isGraduate": true,
+          "schoolName": "Polytechnic University Of The Philippines Taguig",
+          "yearGraduated": "2015-08-15"
+        }
+      ],
+      "elementary": [],
+      "graduate_studies": [],
+      "secondary": []
+    },
+    "formData": {
+      "agencyemployee": "1111-Acg",
+      "bloodType": "AB+",
+      "citizenship": "Fil",
+      "civilStatus": "M",
+      "cscIdNo": 5,
+      "dateOfBirth": "1995-01-01",
+      "email_address": "jd.santos@gmail.com",
+      "fatherFullName": "Santos, Marcelino Jose",
+      "fullName": "Santos, John Dustin III",
+      "gsis": "9203040942",
+      "height": 1.55,
+      "mobile_no": "9927397820",
+      "motherFullName": "Dionarra, Maria Cruz",
+      "pagibig": "3209420",
+      "permanent_address": "102 , Multinational Ave, Paranaque City",
+      "philhealth": "90303092",
+      "placeOfBirth": "Manila",
+      "residential_address": "102 , Multinational Ave, Paranaque City",
+      "sex": "M",
+      "spouseBusinessAddress": "102 House Manila City",
+      "spouseBusinessNumber": "4532157198",
+      "spouseFullName": "Santos, Joan Garcia",
+      "spouseOccupation": "Sari Sari Owner",
+      "sss": "932020420",
+      "telephone_no": "09927397820",
+      "tin": "230230",
+      "weight": 70.0
+    }
+  }
+]
+
+

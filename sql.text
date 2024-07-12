@@ -1,0 +1,58 @@
+SQL Codes and Problems
+ Easy SQL Queries
+
+Find all female applicants and show their full names.
+SELECT Full_Name AS "Female Applicants"
+FROM PERSONAL_INFORMATION
+WHERE Sex = "F";
+
+Find all applicants who are married, along with their spouse’s name.
+SELECT Full_Name AS "Married Applicants", Spouse_Full_Name AS "Applicant’s Spouse"
+FROM PERSONAL_INFORMATION
+WHERE Civil_Status = "M";
+
+Find all applicants who are millennials (born between 1981 and 1996) Sort by age, oldest first.
+SELECT Full_Name AS "Applicants"
+FROM PERSONAL_INFORMATION
+WHERE YEAR(Date_Of_Birth) BETWEEN 1981 AND 1996
+ORDER BY Date_Of_Birth DESC;
+
+ Moderate SQL Queries
+Find the average weight for male and female applicants.
+SELECT Sex, AVG(Weight) AS "Average Weight"
+FROM PERSONAL_INFORMATION
+GROUP BY Sex;
+
+Find the number of applicants who are married.
+SELECT COUNT(*) AS "Number of Married Applicants"
+FROM PERSONAL_INFORMATION
+WHERE Civil_Status = "M";
+
+Find the average height of applicants per blood type.
+SELECT  Blood_Type AS "Blood Type", AVG (Height) AS "Average height per blood type
+FROM PERSONAL_INFORMATION
+GROUP BY Blood_Type;
+
+Find the number of applicants who finished College.
+SELECT COUNT(*) AS "Those who finished College"
+FROM EDUCATION
+WHERE Education_Level = "College";
+
+Hard SQL Queries
+Find the number of applicants who have parents that are registered in the system.
+SELECT COUNT (*)
+FROM PERSONAL_INFORMATION AS P, CHILDREN AS C
+WHERE P.Full_Name = C.Name_of_Children;
+
+Display the names of applicants who are Filipinos and have finished their graduate studies. Find the number of their children.
+SELECT P.Full_Name AS "Name of Applicant, C.COUNT (*)
+FROM PERSONAL_INFORMATION AS P, EDUCATION AS E, CHILDREN AS C
+WHERE P.Citizenship = "Fil" AND E.Education_Level = "Graduate Studies"
+GROUP BY P.Full_Name;
+
+Find all applicants who have finished college and have 2 or more children.
+SELECT P.Full_Name, C.COUNT (*)
+FROM PERSONAL_INFORMATION AS P, EDUCATION AS E, CHILDREN AS C
+WHERE E.Education_Level = "College"
+GROUP BY P.Full_Name
+HAVING C.COUNT (*) >= 2;

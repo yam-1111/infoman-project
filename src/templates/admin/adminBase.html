@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="bg-light">
-    <nav class="navbar sticky-top shadow-sm bg-nv-transparent">
+    <nav class="navbar sticky-top shadow-sm nv-transparent">
         <div class="container-fluid">
             <a class="navbar-brand font-weight-bold" href="#">
                 <img src="{{url_for('static', filename='assets/csc_logo.png')}}" alt="" width="30" height="30"
@@ -9,9 +9,18 @@
                 CSC Admin Dashboard
             </a>
             <div class="d-flex gap-2">
-                <a class="nav-link" href="#">Table</a>
-                <a class="nav-link" href="#">Console</a>
-                <a class="nav-link" href="#">Dashboard</a>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="tableDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Table
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="tableDropdown">
+                        <li><a class="dropdown-item" href="{{url_for('admin.table_personal_information')}}">Personal Information</a></li>
+                        <li><a class="dropdown-item" href="{{url_for('admin.table_children')}}">Children</a></li>
+                        <li><a class="dropdown-item" href="{{url_for('admin.table_education')}}">Education</a></li>
+                    </ul>
+                </div>
+                <a class="nav-link" href="{{url_for('admin.console')}}">Console</a>
                 <div class="ms-auto d-flex align-items-center gap-2">
                     <span>{{session['name']}}</span>
                     <div class="dropdown">
@@ -28,13 +37,27 @@
         </div>
     </nav>
 
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorModalBody"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--- content-->
-    <div class="container mb-4 mt-4">
+    <div class="container-fluid p-4">
         {% block admincontent %}
         {% endblock %}
     </div>
 
 
 
-
+</div>
     {%endblock%}

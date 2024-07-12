@@ -59,7 +59,7 @@ class Children:
 
         # Formulate the final SQL query
         sql = f"UPDATE children SET {set_clause} WHERE {query_condition}"
-        print(f"SQL: {sql}\n\nValues: {values}")
+        print(f"CHILDREN SQL: {sql}\n\nValues: {values}")
         # Update the values in the database, if there is an error raise an exception
         try:
             cursor.execute(sql, values)

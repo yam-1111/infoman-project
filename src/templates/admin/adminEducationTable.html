@@ -1,17 +1,22 @@
 {% extends "/admin/adminBase.html" %}
 {% block admincontent %}
 <div class="card shadow bg-secondary mb-2">
-    <h4 class="card-title text-white p-2">
-        Education Table
-        <span class="badge bg-primary">{{count}}</span>
-    </h4>
-
+    <div class="card-title text-white p-2 d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-2">
+            <h4>Education Table</h4>
+            <span class="badge bg-primary">
+                <h5>{{count}}</h5><span>
+        </div>
+        <a href="javascript:void(0)" class="btn btn-warning" id="#addEducationBtn" data-bs-toggle="modal" data-bs-target="#addModal">
+            Add education entry
+        </a>
+    </div>
 </div>
 
 <div class="card shadow">
     <div class="card-body">
         <!--table-->
-        <table class="table table-bordered">
+        <table class="table table-bordered table-container">
             <thead>
                 <tr>
                     {% for cols in cols_name%}
@@ -30,40 +35,162 @@
                     <td>{{ education.degree }}</td>
                     <td>{{ education.gradsStart }}</td>
                     <td>{{ education.gradsEnd }}</td>
-                    <td>{{education.highestLevel}}</td>
+                    <td>{{education.highestAttainment}}</td>
                     <td>{{ education.yearGraduated}}</td>
-                    <td>{{ education.AchievemmentInput }}</td>
-           
+                    <td>{{ education.AchievementInput}}</td>
+
                     <td>
-                    <button type="button" class="btn btn-success">
-                        Edit
-                    </button>
-                    <button type="button" class="deleteBtn btn btn-danger" data-id="{{education.Education_ID}}">
-                        Delete
-                    </button>
+                        <button type="button" class="editBtn btn btn-success">
+                            Edit
+                        </button>
+                        <button type="button" class="deleteBtn btn btn-danger" data-id="{{education.Education_ID}}">
+                            Delete
+                        </button>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-  
+
 </div>
 </div>
 </div>
 
 <!---->
-</div>
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Add New Education Entry</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="mb-3">
+                        <label for="addcscId" class="form-label">Person Education Background</label>
+                        <select class="form-select" id="addcscId" name="cscId">
+                            {%for p in parent%}
+                            <option value="{{p.cscIdNo}}">{{p.fullName}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="addeducationLevel" class="form-label">Education Level</label>
+                        <select class="form-select" id="addeducationLevel" name="educationLevel">
+                            <option value="elementary">Elementary</option>
+                            <option value="secondary">Secondary</option>
+                            <option value="college">College</option>
+                            <option value="graduate studies">Graduate Studies</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addschoolName" class="form-label">School Name</label>
+                        <input type="text" class="form-control" id="addschoolName" name="schoolName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="adddegreeName" class="form-label">Basic Education / Degree / Course</label>
+                        <input type="text" class="form-control" id="adddegreeName" name="degreeName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="addgradStart" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="addgradStart" name="gradStart">
+                    </div>
+                    <div class="mb-3">
+                        <label for="addgradEnd" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="addgradEnd" name="gradEnd">
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="addGraduate" name="graduate">
+                        <label class="form-check-label" for="addGraduate">Graduate</label>
+                    </div>
+                    <div class="mb-3" id="highestAttainmentContainer" style="display:none;">
+                        <label for="addhighestAttainment" class="form-label">Highest Attainment</label>
+                        <input type="text" class="form-control" id="addhighestAttainment"
+                            name="highestAttainment">
+                    </div>
+                    <div class="mb-3">
+                        <label for="addAchievementInput" class="form-label">Achievements / Awards / Honor Received</label>
+                        <input type="text" class="form-control" id="addAchievementInput" name="achievement">
+                    </div>
+                    <button type="button" id="saveAddChangesBtn" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Education Entry</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <div class="mb-3">
+                        <label for="editcscId" class="form-label">Person Education Background</label>
+                        <select class="form-select" id="editcscId" name="cscId">
+                            {% for p in parent %}
+                            <option value="{{ p.cscIdNo }}">{{ p.fullName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editeducationLevel" class="form-label">Education Level</label>
+                        <select class="form-select" id="editeducationLevel" name="educationLevel">
+                            <option value="elementary">Elementary</option>
+                            <option value="secondary">Secondary</option>
+                            <option value="college">College</option>
+                            <option value="graduate studies">Graduate Studies</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editschoolName" class="form-label">School Name</label>
+                        <input type="text" class="form-control" id="editschoolName" name="schoolName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editdegreeName" class="form-label">Basic Education / Degree / Course</label>
+                        <input type="text" class="form-control" id="editdegreeName" name="degreeName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editgradStart" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="editgradStart" name="gradStart">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editgradEnd" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="editgradEnd" name="gradEnd">
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="editGraduate" name="graduate">
+                        <label class="form-check-label" for="editGraduate">Graduate</label>
+                    </div>
+                    <div class="mb-3" id="editHighestAttainmentContainer" style="display:none;">
+                        <label for="edithighestAttainment" class="form-label">Highest Attainment</label>
+                        <input type="text" class="form-control" id="edithighestAttainment" name="highestAttainment">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editAchievementInput" class="form-label">Achievements / Awards / Honor Received</label>
+                        <input type="text" class="form-control" id="editAchievementInput" name="achievement">
+                    </div>
+                    <button type="button" id="saveEditChangesBtn" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <style>
-        .table-container {
-            max-height: 500px; /* Adjust max-height as needed */
-            overflow-y: auto; /* Enable vertical scrollbar */
-        }
-    </style>
-
+    .table-container {
+        max-height: 500px;
+        /* Adjust max-height as needed */
+        overflow-y: auto;
+        /* Enable vertical scrollbar */
+    }
+</style>
+<script src="{{url_for('static', filename='js/admin/educationTable.js')}}"></script>
 <script>
     $(document).ready(() => {
         $(".changePasswordBtn").click(function () {
@@ -93,7 +220,7 @@
 
         $('.deleteBtn').click(function () {
             var dataId = $(this).attr("data-id");
-            if (confirm("Are you sure you want to delete this person?")) {
+            if (confirm("Are you sure you want to delete this education entity?")) {
                 $.ajax({
                     url: "/admin/delete/education",
                     type: "DELETE",
@@ -109,5 +236,13 @@
             }
         });
     })
+
+    $("#addGraduate").change(function() {
+            if (this.checked) {
+                $("#highestAttainmentContainer").hide();
+            } else {
+                $("#highestAttainmentContainer").show();
+            }
+    });
 </script>
 {% endblock %}
